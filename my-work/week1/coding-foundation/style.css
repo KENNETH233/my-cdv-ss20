@@ -1,0 +1,38 @@
+body{
+  background-color:black;
+}
+
+.input{
+  width:300px;
+  height: auto;
+  margin:1px;
+}
+
+.submitButton{
+  width:300px;
+  height: auto;
+  margin:1px;
+  font-weight: bold;
+  border-radius: none;
+  font-size: 10px;
+}
+
+.box{
+  width:30px;
+  height:30px;
+  background-color: white;
+  margin:10px;
+}
+
+#inputBox{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top:50px;
+}
+
+
+.allBox{
+  display: flex;
+  flex-wrap: wrap;
+}

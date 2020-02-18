@@ -10,8 +10,9 @@ function drawBox(){
 
 //function to remove box
 function removeBox(){
-  var elem = document.getElementById("box");
-  return elem.parentNode.removeChild(elem);
+  var elem = document.getElementsByClassName("box");
+  console.log(elem[0]);
+  return elem[0].parentNode.removeChild(elem[0]);
 }
 
 // the function to draw box according to the input number

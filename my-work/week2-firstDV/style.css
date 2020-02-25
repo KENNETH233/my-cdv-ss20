@@ -1,0 +1,48 @@
+.bar{
+  height:100px;
+  width:200px;
+  background-color: #ecb390;
+  margin:8px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title{
+  text-align: center;;
+  font-family: fantasy;
+  color:#df7861;
+}
+
+
+.name{
+  font-family: fantasy;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.vizBox{
+  display: flex;
+  flex-direction: column;
+}
+
+body{
+  background-color: #ecdfc8;
+}
+
+.dataBox{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.pic{
+  margin-top: 5px;
+  width:170px;
+  height:100px;
+}
+
+.barNameDiv{
+  margin-top: 6px;
+}

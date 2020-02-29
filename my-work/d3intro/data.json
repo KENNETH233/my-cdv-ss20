@@ -1,0 +1,26 @@
+[
+  {"name": "uniqlo",
+    "average": 7.333333333333333,
+    "numMeasurements": 18
+  },
+  {"name": "ur",
+    "average": 6.444444444444445,
+    "numMeasurements": 18
+  },
+  {"name": "hm",
+    "average": 7.277777777777778,
+    "numMeasurements": 18
+  },
+  {"name": "zara",
+    "average": 7.333333333333333,
+    "numMeasurements": 18
+  },
+  {"": "pullbear",
+    "average": 5.888888888888889,
+    "numMeasurements": 18
+  },
+  {"name": "bershka",
+    "average": 5.277777777777778,
+    "numMeasurements": 18
+  }
+]

@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 24.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 1920 1080" style="enable-background:new 0 0 1920 1080;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#CCCCCC;}
-</style>
-<polygon class="st0" points="1022,372 1022,449 878,449 878,372 845,372 845,449 845,487 1055,487 1055,449 1055,372 "/>
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 40">
+  <defs>
+    <style>.cls-1{fill:#ccc;}</style>
+  </defs>
+  <title>livingroom</title>
+  <polygon class="cls-1" points="67.43 0 67.43 26.78 12.57 26.78 12.57 0 0 0 0 26.78 0 40 80 40 80 26.78 80 0 67.43 0"/>
 </svg>

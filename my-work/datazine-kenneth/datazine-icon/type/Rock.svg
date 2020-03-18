@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 24.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 1920 1080" style="enable-background:new 0 0 1920 1080;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
-	.st1{fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
-</style>
-<g>
-	<polygon class="st0" points="962.28,492.69 984.9,545.05 1006.98,545.05 1006.98,467.18 991.72,506.11 	"/>
-	<polygon class="st0" points="1007.51,467.18 1007.51,545.05 1029.59,545.05 1052.2,492.69 1022.74,506.11 	"/>
-	<ellipse class="st0" cx="958.34" cy="486.31" rx="4.73" ry="6.04"/>
-	<ellipse class="st0" cx="1007.51" cy="457.11" rx="4.46" ry="5.7"/>
-	<ellipse class="st0" cx="1056.93" cy="485.97" rx="4.46" ry="5.7"/>
-</g>
-<rect x="940" y="415" class="st1" width="135" height="180"/>
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 62">
+  <defs>
+    <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
+  </defs>
+  <title>Rock</title>
+  <polygon class="cls-1" points="9.25 26.9 17.63 44.35 25.81 44.35 25.81 18.39 20.16 31.37 9.25 26.9"/>
+  <polygon class="cls-1" points="26 18.39 26 44.35 34.18 44.35 42.56 26.9 31.64 31.37 26 18.39"/>
+  <ellipse class="cls-1" cx="7.79" cy="24.77" rx="1.75" ry="2.01"/>
+  <ellipse class="cls-1" cx="26" cy="15.04" rx="1.65" ry="1.9"/>
+  <ellipse class="cls-1" cx="44.31" cy="24.66" rx="1.65" ry="1.9"/>
+  <rect class="cls-2" x="1" y="1" width="50" height="60"/>
 </svg>

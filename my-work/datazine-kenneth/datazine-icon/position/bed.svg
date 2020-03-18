@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 24.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 1920 1080" style="enable-background:new 0 0 1920 1080;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#8C6239;}
-</style>
-<polygon class="st0" points="1036,500 1036,550 906,550 906,581 1058,581 1058,550 1058,500 "/>
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30">
+  <defs>
+    <style>.cls-1{fill:#8c6239;}</style>
+  </defs>
+  <title>bed</title>
+  <polygon class="cls-1" points="51.32 0 51.32 18.52 0 18.52 0 30 60 30 60 18.52 60 0 51.32 0"/>
 </svg>

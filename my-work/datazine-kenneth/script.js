@@ -3,6 +3,11 @@ let h=800;
       // morning, noon, afternoon, night
 let wrapData = [[],[],[],[]];
 
+let morningSet = [];
+let noonSet = [];
+let afternoonSet = [];
+let nightSet = [];
+
 
 let viz = d3.select("#container")
   .append("svg")
@@ -12,78 +17,77 @@ let viz = d3.select("#container")
     .style("background-color","#B7D7D7")
 ;
 
-// draw three line to divide the window to four time period
-viz.append("line")
-  .style("stroke","black")
-  .attr("x1",0)
-  .attr("y1",200)
-  .attr("x2",2400)
-  .attr("y2",200)
+// four time periods
+viz.append("rect")
+  .attr("x",0)
+  .attr("y",0)
+  .attr("width",w)
+  .attr("height",200)
+  .attr("fill","#A88F65")
 ;
 
-viz.append("line")
-  .style("stroke","black")
-  .attr("x1",0)
-  .attr("y1",400)
-  .attr("x2",2400)
-  .attr("y2",400)
+viz.append("rect")
+  .attr("x",0)
+  .attr("y",200)
+  .attr("width",w)
+  .attr("height",200)
+  .attr("fill","#DDC19C")
 ;
 
-viz.append("line")
-  .style("stroke","black")
-  .attr("x1",0)
-  .attr("y1",600)
-  .attr("x2",2400)
-  .attr("y2",600)
+viz.append("rect")
+  .attr("x",0)
+  .attr("y",400)
+  .attr("width",w)
+  .attr("height",200)
+  .attr("fill","#B8A285")
 ;
 
-viz.append("line")
-  .style("stroke","black")
-  .attr("x1",342)
-  .attr("y1",0)
-  .attr("x2",342)
-  .attr("y2",800)
+viz.append("rect")
+  .attr("x",0)
+  .attr("y",600)
+  .attr("width",w)
+  .attr("height",200)
+  .attr("fill","#977D53")
 ;
 
-viz.append("line")
-  .style("stroke","black")
-  .attr("x1",342*2)
-  .attr("y1",0)
-  .attr("x2",342*2)
-  .attr("y2",800)
+viz.append("text")
+  .attr("x",20)
+  .attr("y",100)
+  .text("Morning")
+  .style("font-family","sans-serif")
+  .style("font-size",20)
+  .style("strokeWeight","bold")
 ;
 
-viz.append("line")
-  .style("stroke","black")
-  .attr("x1",342*3)
-  .attr("y1",0)
-  .attr("x2",342*3)
-  .attr("y2",800)
+viz.append("text")
+  .attr("x",20)
+  .attr("y",300)
+  .text("Noon")
+  .style("font-family","sans-serif")
+  .style("font-size",20)
+  .style("strokeWeight","bold")
 ;
 
-viz.append("line")
-  .style("stroke","black")
-  .attr("x1",342*4)
-  .attr("y1",0)
-  .attr("x2",342*4)
-  .attr("y2",800)
+viz.append("text")
+  .attr("x",20)
+  .attr("y",500)
+  .text("Afternoon")
+  .style("font-family","sans-serif")
+  .style("font-size",20)
+  .style("strokeWeight","bold")
 ;
 
-viz.append("line")
-  .style("stroke","black")
-  .attr("x1",342*5)
-  .attr("y1",0)
-  .attr("x2",342*5)
-  .attr("y2",800)
+viz.append("text")
+  .attr("x",20)
+  .attr("y",700)
+  .text("Night")
+  .style("font-family","sans-serif")
+  .style("font-size",20)
+  .style("strokeWeight","bold")
 ;
 
-viz.append("line")
-  .style("stroke","black")
-  .attr("x1",342*6)
-  .attr("y1",0)
-  .attr("x2",342*6)
-  .attr("y2",800)
-;
+
+
 
 
 
@@ -99,7 +103,7 @@ let crown = `  <defs>
 
 // Svg value of music type
 let hiphop = `  <defs>
-     <style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px;}</style>
+    <style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px;}</style>
   </defs>
   <title>hiphop</title>
   <polygon class="cls-1" points="11.07 40.95 1.12 20.95 11.16 1 31.16 1.05 41.12 21.06 31.07 41 11.07 40.95"/>`;
@@ -120,30 +124,23 @@ let rock = `  <defs>
   <rect class="cls-1" x="1" y="1" width="39" height="39"/> `;
 
 // svg value of locatino
-let balcony = `  <defs>
-    <style>.cls-1{fill:#fbb03b;}</style>
-  </defs>
+let balcony = `
   <title>balcony</title>
   <polygon class="cls-1" points="0 2.05 10.96 10.55 15.94 9.27 4.98 0.77 0 2.05"/>
   <polygon class="cls-1" points="11.92 1.29 22.87 9.79 27.85 8.5 16.89 0 11.92 1.29"/>
   <polygon class="cls-1" points="29.04 0 24.06 1.29 35.02 9.79 40 8.5 29.04 0"/>`;
-let bathroom = `   <defs>
-    <style>.cls-1{fill:#29abe2;}</style>
-  </defs>
+let bathroom = `
   <title>bathroom</title>
   <ellipse class="cls-1" cx="5.19" cy="5" rx="5.19" ry="5"/>
   <ellipse class="cls-1" cx="44.81" cy="5" rx="5.19" ry="5"/>
   <ellipse class="cls-1" cx="25" cy="5" rx="5.19" ry="5"/>`;
-let bed = `  <defs>
-    <style>.cls-1{fill:#8c6239;}</style>
-  </defs>
-  <title>bed</title>
+let bed = `
   <polygon class="cls-1" points="34.21 0 34.21 6.17 0 6.17 0 10 40 10 40 6.17 40 0 34.21 0"/> `;
-let livingroom = `  <defs>
-    <style>.cls-1{fill:#ccc;}</style>
-  </defs>
+let livingroom = `
   <title>living</title>
   <polygon class="cls-1" points="46.36 0 46.36 6.7 8.64 6.7 8.64 0 0 0 0 6.7 0 10 55 10 55 6.7 55 0 46.36 0"/>`;
+
+
 
 function gotData(incomingData){
   console.log(incomingData);
@@ -151,33 +148,34 @@ function gotData(incomingData){
   // sort out the json data
   for(let i = 0; i < incomingData.length; i++){
     if (incomingData[i].time == "Morning"){
-      wrapData[0].push(incomingData[i]);
+      morningSet.push(incomingData[i]);
     }
     if (incomingData[i].time == "Noon"){
-      wrapData[1].push(incomingData[i]);
+      noonSet.push(incomingData[i]);
     }
     if (incomingData[i].time == "Afternoon"){
-      wrapData[2].push(incomingData[i]);
+      afternoonSet.push(incomingData[i]);
     }
     if (incomingData[i].time == "Night"){
-      wrapData[3].push(incomingData[i]);
+      nightSet.push(incomingData[i]);
     }
   }
 
-  console.log(wrapData);
+  console.log(morningSet);
+  console.log(noonSet);
+  console.log(afternoonSet);
+  console.log(nightSet);
 
-  // main body color = my mood
-  function color(d,i){
-    if(d.mood=="Sleepy"){
-      return "blue";
-    }else if(d.mood=="Tired"){
-      return "white";
-    }else if (d.mood=="Energetic") {
-      return "black";
-    }else if (d.mood=="Peaceful") {
-      return "yellow";
-    }
+
+  function findDate(d,i){
+    return d.date;
   }
+  let minDate = d3.min(incomingData,findDate);
+  console.log(minDate);
+
+  let maxDate = d3.max(incomingData,findDate);
+
+  let xScale = d3.scaleTime().domain([minDate,maxDate]).range([30,2000]);
 
   // musicType
   function getMusicType(d,i){
@@ -214,13 +212,29 @@ function gotData(incomingData){
       return "translate(5,-50)";
     }
     if(d.location=="Bathroom"){
-      return "translate(-3,-15)";
+      return "translate(-8,-15)";
     }
     if(d.location=="Living room"){
-      return "translate(-6,36)";
+      return "translate(-10,35)";
     }
     if(d.location=="Bed"){
-      return "translate(6,40)";
+      return "translate(0,35)";
+    }
+  }
+
+  // translate type graphics
+  function translateType(d,i){
+    if(d.musicType=="Hip-hop"){
+      return "translate(-4,-4)";
+    }
+    if(d.musicType=="Pop"){
+      return "translate(-5,-5)";
+    }
+    if(d.musicType=="R&B"){
+      return "translate(-12,-8)";
+    }
+    if(d.musicType=="Rock"){
+      return "translate(-4,-4)";
     }
   }
 
@@ -229,71 +243,193 @@ function gotData(incomingData){
   }
 
   function groupPos(d,i){
-    let x;
+    let x = 200+1200/9 * i;
     let y;
 
-    let distribution = Math.floor(Math.random()*90);
-
-    if(d.date==2.24){
-      x = 128+distribution;
-    }else if(d.date==2.25){
-      x = 128*3+distribution;
-    }else if(d.date==2.26){
-      x = 128*6+distribution;
-    }else if(d.date==2.27){
-      x = 128*9+distribution;
-    }else if(d.date==2.28){
-      x = 128*12+distribution;
-    }else if(d.date==2.29){
-      x = 128*15+distribution;
-    }else if(d.date==3.1){
-      x = 120*18+distribution;
-    }
-
     if(d.time=="Morning"){
-      y = Math.floor(Math.random()*100+20);
+      y = 100;
     }else if (d.time=="Noon") {
-      y = Math.floor(Math.random()*100+200);
+      y = 300;
     }else if (d.time=="Afternoon") {
-      y = Math.floor(Math.random()*100+400);
+      y = 500;
     }else if (d.time=="Night") {
-      y = Math.floor(Math.random()*100+600);
+      y = 700;
     }
 
     return "translate("+ x +", "+ y +")"
   }
 
-
-  let datagroups = viz.selectAll(".datagroup").data(incomingData).enter()
-    .append("g")
-      .attr("class","datagroup")
+//Morning
+  let morningGroups = viz.selectAll(".morningGroup").data(morningSet).enter()
+      .append("g")
+        .attr("class","morningGroup")
   ;
 
-  datagroups.attr("transform",groupPos);
+  morningGroups.attr("transform",groupPos);
+  morningGroups.html(crown);
 
-  datagroups.html(crown);
+  let morningType = morningGroups.append('g')
+        .attr("class","morningType")
 
-  let shapeGroup = datagroups.append('g')
-        .attr("class","shapeGroup")
-;
+      ;
 
-  let type = shapeGroup.html(getMusicType);
+  let drawMorningType = morningType.html(getMusicType)
+      .attr("transform",translateType)
+    ;
 
-  let locationGroup = datagroups.append('g')
-        .attr("class","locationGroup")
-  ;
+  let morningLocationGroups = morningGroups.append('g')
+        .attr("class","morningLocationGroup")
+      ;
 
-  let location = locationGroup.html(getLocation)
+  let morningLocation = morningLocationGroups.html(getLocation)
         .attr("transform", locationFeature)
-  ;
+      ;
 
-  datagroups.append("text")
+  morningGroups.append("text")
     .attr("x",0)
-    .attr("y",0)
+    .attr("y",25)
     .attr("fill","white")
     .text(getDate)
     .style("font-family","sans-serif")
+    .attr("transform","rotate(90)")
   ;
+
+
+// noon
+let noonGroups = viz.selectAll(".noonGroup").data(noonSet).enter()
+    .append("g")
+      .attr("class","noonGroup")
+;
+
+noonGroups.attr("transform",groupPos);
+noonGroups.html(crown);
+
+let noonType = noonGroups.append('g')
+      .attr("class","noonType")
+    ;
+
+let drawNoonType = noonType.html(getMusicType)
+    .attr("transform",translateType)
+;
+
+let noonLocationGroups = noonGroups.append('g')
+      .attr("class","noonLocationGroup")
+    ;
+
+let noonLocation = noonLocationGroups.html(getLocation)
+      .attr("transform", locationFeature)
+    ;
+
+noonGroups.append("text")
+  .attr("x",0)
+  .attr("y",25)
+  .attr("fill","white")
+  .text(getDate)
+  .style("font-family","sans-serif")
+  .attr("transform","rotate(90)")
+;
+
+// afternoon
+
+let afternoonGroups = viz.selectAll(".afternoonGroup").data(afternoonSet).enter()
+    .append("g")
+      .attr("class","afternoonGroup")
+;
+
+afternoonGroups.attr("transform",groupPos);
+afternoonGroups.html(crown);
+
+let afternoonType = afternoonGroups.append('g')
+      .attr("class","afternoonType")
+    ;
+
+let drawAfternoonType = afternoonType.html(getMusicType)
+    .attr("transform",translateType)
+;
+
+let afternoonLocationGroups = afternoonGroups.append('g')
+      .attr("class","afternoonLocationGroup")
+    ;
+
+let afternoonLocation = afternoonLocationGroups.html(getLocation)
+      .attr("transform", locationFeature)
+    ;
+
+afternoonGroups.append("text")
+  .attr("x",0)
+  .attr("y",25)
+  .attr("fill","white")
+  .text(getDate)
+  .style("font-family","sans-serif")
+  .attr("transform","rotate(90)")
+;
+
+//night
+
+let nightGroups = viz.selectAll(".nightGroup").data(nightSet).enter()
+    .append("g")
+      .attr("class","nightGroup")
+;
+
+nightGroups.attr("transform",groupPos);
+nightGroups.html(crown);
+
+let nightType = nightGroups.append('g')
+      .attr("class","nightType")
+    ;
+
+let drawNightType = nightType.html(getMusicType)
+    .attr("transform",translateType)
+;
+
+let nightLocationGroups = nightGroups.append('g')
+      .attr("class","nightLocationGroup")
+    ;
+
+let nightLocation = nightLocationGroups.html(getLocation)
+      .attr("transform", locationFeature)
+    ;
+
+nightGroups.append("text")
+  .attr("x",0)
+  .attr("y",25)
+  .attr("fill","white")
+  .text(getDate)
+  .style("font-family","sans-serif")
+  .attr("transform","rotate(90)")
+;
+
+//----------------------------------------------------------------------------
+//   let datagroups = viz.selectAll(".datagroup").data(incomingData).enter()
+//     .append("g")
+//       .attr("class","datagroup")
+//   ;
+//
+//   datagroups.attr("transform",groupPos);
+//
+//   datagroups.html(crown);
+//
+//   let shapeGroup = datagroups.append('g')
+//         .attr("class","shapeGroup")
+// ;
+//
+//   let type = shapeGroup.html(getMusicType);
+//
+//   let locationGroup = datagroups.append('g')
+//         .attr("class","locationGroup")
+//   ;
+//
+//   let location = locationGroup.html(getLocation)
+//         .attr("transform", locationFeature)
+//   ;
+// //----------------------------------------------------------------------------
+  // datagroups.append("text")
+  //   .attr("x",0)
+  //   .attr("y",0)
+  //   .attr("fill","white")
+  //   .text(getDate)
+  //   .style("font-family","sans-serif")
+  // ;
 
 }
 

@@ -1,12 +1,7 @@
-<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 62">
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41">
   <defs>
-    <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
+    <style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px;}</style>
   </defs>
-  <title>Rock</title>
-  <polygon class="cls-1" points="9.25 26.9 17.63 44.35 25.81 44.35 25.81 18.39 20.16 31.37 9.25 26.9"/>
-  <polygon class="cls-1" points="26 18.39 26 44.35 34.18 44.35 42.56 26.9 31.64 31.37 26 18.39"/>
-  <ellipse class="cls-1" cx="7.79" cy="24.77" rx="1.75" ry="2.01"/>
-  <ellipse class="cls-1" cx="26" cy="15.04" rx="1.65" ry="1.9"/>
-  <ellipse class="cls-1" cx="44.31" cy="24.66" rx="1.65" ry="1.9"/>
-  <rect class="cls-2" x="1" y="1" width="50" height="60"/>
+  <title>rock</title>
+  <rect class="cls-1" x="1" y="1" width="39" height="39"/>
 </svg>

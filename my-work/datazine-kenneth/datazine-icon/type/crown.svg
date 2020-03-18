@@ -1,0 +1,11 @@
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.92 26.21">
+  <defs>
+    <style>.cls-1{fill:#fff;stroke:#000;stroke-miterlimit:10;}</style>
+  </defs>
+  <title>crown</title>
+  <polygon class="cls-1" points="2.99 11.62 9.48 25.71 15.81 25.71 15.81 4.74 11.44 15.22 2.99 11.62"/>
+  <polygon class="cls-1" points="15.96 4.74 15.96 25.71 22.3 25.71 28.79 11.62 20.33 15.22 15.96 4.74"/>
+  <ellipse class="cls-1" cx="1.86" cy="9.89" rx="1.36" ry="1.62"/>
+  <path class="cls-1" d="M600,390.46a1.55,1.55,0,1,0-1.28-1.53A1.42,1.42,0,0,0,600,390.46Z" transform="translate(-584.04 -386.9)"/>
+  <path class="cls-1" d="M614.18,395.17a1.56,1.56,0,1,0,1.28,1.53A1.42,1.42,0,0,0,614.18,395.17Z" transform="translate(-584.04 -386.9)"/>
+</svg>

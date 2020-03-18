@@ -1,9 +1,9 @@
-<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 15">
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 10">
   <defs>
     <style>.cls-1{fill:#29abe2;}</style>
   </defs>
   <title>bathroom</title>
-  <ellipse class="cls-1" cx="6.23" cy="7.5" rx="6.23" ry="7.5"/>
-  <ellipse class="cls-1" cx="53.77" cy="7.5" rx="6.23" ry="7.5"/>
-  <ellipse class="cls-1" cx="30" cy="7.5" rx="6.23" ry="7.5"/>
+  <ellipse class="cls-1" cx="5.19" cy="5" rx="5.19" ry="5"/>
+  <ellipse class="cls-1" cx="44.81" cy="5" rx="5.19" ry="5"/>
+  <ellipse class="cls-1" cx="25" cy="5" rx="5.19" ry="5"/>
 </svg>

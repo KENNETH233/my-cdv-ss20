@@ -1,12 +1,7 @@
-<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 62">
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42">
   <defs>
-    <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
+    <style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px;}</style>
   </defs>
   <title>pop</title>
-  <polygon class="cls-1" points="10.03 24.8 20.62 48.47 30.97 48.47 30.97 13.27 23.82 30.86 10.03 24.8"/>
-  <polygon class="cls-1" points="31.22 13.27 31.22 48.47 41.56 48.47 52.16 24.8 38.36 30.86 31.22 13.27"/>
-  <ellipse class="cls-1" cx="8.18" cy="21.91" rx="2.22" ry="2.73"/>
-  <ellipse class="cls-1" cx="31.22" cy="8.71" rx="2.09" ry="2.58"/>
-  <ellipse class="cls-1" cx="54.37" cy="21.76" rx="2.09" ry="2.58"/>
-  <circle class="cls-2" cx="31" cy="31" r="30"/>
+  <circle class="cls-1" cx="21" cy="21" r="20"/>
 </svg>

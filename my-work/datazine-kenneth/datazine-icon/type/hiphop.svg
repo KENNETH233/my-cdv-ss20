@@ -1,12 +1,7 @@
-<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.24 62">
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.24 42">
   <defs>
-    <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
+    <style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px;}</style>
   </defs>
   <title>hiphop</title>
-  <polygon class="cls-1" points="11.47 24.51 21.52 50.42 31.34 50.42 31.34 11.89 24.56 31.15 11.47 24.51"/>
-  <polygon class="cls-1" points="31.58 11.89 31.58 50.42 41.4 50.42 51.46 24.51 38.36 31.15 31.58 11.89"/>
-  <ellipse class="cls-1" cx="9.71" cy="21.35" rx="2.1" ry="2.99"/>
-  <ellipse class="cls-1" cx="31.58" cy="6.91" rx="1.99" ry="2.82"/>
-  <ellipse class="cls-1" cx="53.56" cy="21.19" rx="1.99" ry="2.82"/>
-  <polygon class="cls-2" points="16.05 60.92 1.12 30.92 16.18 1 46.18 1.08 61.12 31.09 46.05 61 16.05 60.92"/>
+  <polygon class="cls-1" points="11.07 40.95 1.12 20.95 11.16 1 31.16 1.05 41.12 21.06 31.07 41 11.07 40.95"/>
 </svg>

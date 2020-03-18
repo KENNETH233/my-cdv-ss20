@@ -1,9 +1,9 @@
-<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 20.55">
+<svg id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 10.55">
   <defs>
     <style>.cls-1{fill:#fbb03b;}</style>
   </defs>
   <title>balcony</title>
-  <polygon class="cls-1" points="0 4 16.44 20.55 23.91 18.05 7.47 1.5 0 4"/>
-  <polygon class="cls-1" points="17.88 2.51 34.31 19.06 41.78 16.55 25.34 0 17.88 2.51"/>
-  <polygon class="cls-1" points="43.56 0 36.09 2.51 52.53 19.06 60 16.55 43.56 0"/>
+  <polygon class="cls-1" points="0 2.05 10.96 10.55 15.94 9.27 4.98 0.77 0 2.05"/>
+  <polygon class="cls-1" points="11.92 1.29 22.87 9.79 27.85 8.5 16.89 0 11.92 1.29"/>
+  <polygon class="cls-1" points="29.04 0 24.06 1.29 35.02 9.79 40 8.5 29.04 0"/>
 </svg>

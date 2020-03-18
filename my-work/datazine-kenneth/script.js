@@ -1,7 +1,8 @@
 let w=2400;
 let h=800;
-
+      // morning, noon, afternoon, night
 let wrapData = [[],[],[],[]];
+
 
 let viz = d3.select("#container")
   .append("svg")
@@ -11,76 +12,159 @@ let viz = d3.select("#container")
     .style("background-color","#B7D7D7")
 ;
 
+// draw three line to divide the window to four time period
+viz.append("line")
+  .style("stroke","black")
+  .attr("x1",0)
+  .attr("y1",200)
+  .attr("x2",2400)
+  .attr("y2",200)
+;
+
+viz.append("line")
+  .style("stroke","black")
+  .attr("x1",0)
+  .attr("y1",400)
+  .attr("x2",2400)
+  .attr("y2",400)
+;
+
+viz.append("line")
+  .style("stroke","black")
+  .attr("x1",0)
+  .attr("y1",600)
+  .attr("x2",2400)
+  .attr("y2",600)
+;
+
+viz.append("line")
+  .style("stroke","black")
+  .attr("x1",342)
+  .attr("y1",0)
+  .attr("x2",342)
+  .attr("y2",800)
+;
+
+viz.append("line")
+  .style("stroke","black")
+  .attr("x1",342*2)
+  .attr("y1",0)
+  .attr("x2",342*2)
+  .attr("y2",800)
+;
+
+viz.append("line")
+  .style("stroke","black")
+  .attr("x1",342*3)
+  .attr("y1",0)
+  .attr("x2",342*3)
+  .attr("y2",800)
+;
+
+viz.append("line")
+  .style("stroke","black")
+  .attr("x1",342*4)
+  .attr("y1",0)
+  .attr("x2",342*4)
+  .attr("y2",800)
+;
+
+viz.append("line")
+  .style("stroke","black")
+  .attr("x1",342*5)
+  .attr("y1",0)
+  .attr("x2",342*5)
+  .attr("y2",800)
+;
+
+viz.append("line")
+  .style("stroke","black")
+  .attr("x1",342*6)
+  .attr("y1",0)
+  .attr("x2",342*6)
+  .attr("y2",800)
+;
+
+
+
+let crown = `  <defs>
+    <style>.cls-1{fill:#fff;stroke:#000;stroke-miterlimit:10;}</style>
+  </defs>
+  <title>crown</title>
+  <polygon class="cls-1" points="2.99 11.62 9.48 25.71 15.81 25.71 15.81 4.74 11.44 15.22 2.99 11.62"/>
+  <polygon class="cls-1" points="15.96 4.74 15.96 25.71 22.3 25.71 28.79 11.62 20.33 15.22 15.96 4.74"/>
+  <ellipse class="cls-1" cx="1.86" cy="9.89" rx="1.36" ry="1.62"/>
+  <path class="cls-1" d="M600,390.46a1.55,1.55,0,1,0-1.28-1.53A1.42,1.42,0,0,0,600,390.46Z" transform="translate(-584.04 -386.9)"/>
+  <path class="cls-1" d="M614.18,395.17a1.56,1.56,0,1,0,1.28,1.53A1.42,1.42,0,0,0,614.18,395.17Z" transform="translate(-584.04 -386.9)"/>`
+
 // Svg value of music type
 let hiphop = `  <defs>
-    <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
+     <style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px;}</style>
   </defs>
   <title>hiphop</title>
-  <polygon class="cls-1" points="11.47 24.51 21.52 50.42 31.34 50.42 31.34 11.89 24.56 31.15 11.47 24.51"/>
-  <polygon class="cls-1" points="31.58 11.89 31.58 50.42 41.4 50.42 51.46 24.51 38.36 31.15 31.58 11.89"/>
-  <ellipse class="cls-1" cx="9.71" cy="21.35" rx="2.1" ry="2.99"/>
-  <ellipse class="cls-1" cx="31.58" cy="6.91" rx="1.99" ry="2.82"/>
-  <ellipse class="cls-1" cx="53.56" cy="21.19" rx="1.99" ry="2.82"/>
-  <polygon class="cls-2" points="16.05 60.92 1.12 30.92 16.18 1 46.18 1.08 61.12 31.09 46.05 61 16.05 60.92"/>`;
-let pop = `    <defs>
-    <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
+  <polygon class="cls-1" points="11.07 40.95 1.12 20.95 11.16 1 31.16 1.05 41.12 21.06 31.07 41 11.07 40.95"/>`;
+let pop = `  <defs>
+    <style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px;}</style>
   </defs>
   <title>pop</title>
-  <polygon class="cls-1" points="10.03 24.8 20.62 48.47 30.97 48.47 30.97 13.27 23.82 30.86 10.03 24.8"/>
-  <polygon class="cls-1" points="31.22 13.27 31.22 48.47 41.56 48.47 52.16 24.8 38.36 30.86 31.22 13.27"/>
-  <ellipse class="cls-1" cx="8.18" cy="21.91" rx="2.22" ry="2.73"/>
-  <ellipse class="cls-1" cx="31.22" cy="8.71" rx="2.09" ry="2.58"/>
-  <ellipse class="cls-1" cx="54.37" cy="21.76" rx="2.09" ry="2.58"/>
-  <circle class="cls-2" cx="31" cy="31" r="30"/>`;
-let rnb = `    <defs>
-    <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
-  </defs><title>R&amp;amp;B</title>
-  <polygon class="cls-1" points="20.01 29.24 27.93 46.92 35.65 46.92 35.65 20.63 30.32 33.77 20.01 29.24"/>
-  <polygon class="cls-1" points="35.84 20.63 35.84 46.92 43.56 46.92 51.48 29.24 41.17 33.77 35.84 20.63"/>
-  <ellipse class="cls-1" cx="18.63" cy="27.09" rx="1.66" ry="2.04"/>
-  <ellipse class="cls-1" cx="35.84" cy="17.23" rx="1.56" ry="1.93"/>
-  <ellipse class="cls-1" cx="53.13" cy="26.97" rx="1.56" ry="1.93"/>
-  <polygon class="cls-2" points="56.05 61.37 35.57 51.59 15.5 62.18 18.94 40.54 2.23 25.6 24.84 22 34.58 2.18 45.11 21.59 67.84 24.29 51.74 39.89 56.05 61.37"/>`;
-let rock = `    <defs>
-    <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
+  <circle class="cls-1" cx="21" cy="21" r="20"/> `;
+let rnb = `  <defs>
+    <style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px;}</style>
   </defs>
-  <title>Rock</title>
-  <polygon class="cls-1" points="9.25 26.9 17.63 44.35 25.81 44.35 25.81 18.39 20.16 31.37 9.25 26.9"/>
-  <polygon class="cls-1" points="26 18.39 26 44.35 34.18 44.35 42.56 26.9 31.64 31.37 26 18.39"/>
-  <ellipse class="cls-1" cx="7.79" cy="24.77" rx="1.75" ry="2.01"/>
-  <ellipse class="cls-1" cx="26" cy="15.04" rx="1.65" ry="1.9"/>
-  <ellipse class="cls-1" cx="44.31" cy="24.66" rx="1.65" ry="1.9"/>
-  <rect class="cls-2" x="1" y="1" width="50" height="60"/>`;
+  <title>rnb</title>
+  <polygon class="cls-1" points="44.13 42.24 28.27 35.59 12.74 42.79 15.4 28.07 2.46 17.91 19.97 15.46 27.51 1.97 35.66 15.18 53.26 17.02 40.79 27.63 44.13 42.24"/> `;
+let rock = `  <defs>
+    <style>.cls-1{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2px;}</style>
+  </defs>
+  <title>rock</title>
+  <rect class="cls-1" x="1" y="1" width="39" height="39"/> `;
 
 // svg value of locatino
 let balcony = `  <defs>
     <style>.cls-1{fill:#fbb03b;}</style>
   </defs>
   <title>balcony</title>
-  <polygon class="cls-1" points="0 4 16.44 20.55 23.91 18.05 7.47 1.5 0 4"/>
-  <polygon class="cls-1" points="17.88 2.51 34.31 19.06 41.78 16.55 25.34 0 17.88 2.51"/>
-  <polygon class="cls-1" points="43.56 0 36.09 2.51 52.53 19.06 60 16.55 43.56 0"/>`;
-let bathroom = `  <defs>
+  <polygon class="cls-1" points="0 2.05 10.96 10.55 15.94 9.27 4.98 0.77 0 2.05"/>
+  <polygon class="cls-1" points="11.92 1.29 22.87 9.79 27.85 8.5 16.89 0 11.92 1.29"/>
+  <polygon class="cls-1" points="29.04 0 24.06 1.29 35.02 9.79 40 8.5 29.04 0"/>`;
+let bathroom = `   <defs>
     <style>.cls-1{fill:#29abe2;}</style>
   </defs>
   <title>bathroom</title>
-  <ellipse class="cls-1" cx="6.23" cy="7.5" rx="6.23" ry="7.5"/>
-  <ellipse class="cls-1" cx="53.77" cy="7.5" rx="6.23" ry="7.5"/>
-  <ellipse class="cls-1" cx="30" cy="7.5" rx="6.23" ry="7.5"/>`;
+  <ellipse class="cls-1" cx="5.19" cy="5" rx="5.19" ry="5"/>
+  <ellipse class="cls-1" cx="44.81" cy="5" rx="5.19" ry="5"/>
+  <ellipse class="cls-1" cx="25" cy="5" rx="5.19" ry="5"/>`;
 let bed = `  <defs>
     <style>.cls-1{fill:#8c6239;}</style>
   </defs>
   <title>bed</title>
-  <polygon class="cls-1" points="51.32 0 51.32 18.52 0 18.52 0 30 60 30 60 18.52 60 0 51.32 0"/>`;
+  <polygon class="cls-1" points="34.21 0 34.21 6.17 0 6.17 0 10 40 10 40 6.17 40 0 34.21 0"/> `;
 let livingroom = `  <defs>
     <style>.cls-1{fill:#ccc;}</style>
   </defs>
-  <title>livingroom</title>
-  <polygon class="cls-1" points="67.43 0 67.43 26.78 12.57 26.78 12.57 0 0 0 0 26.78 0 40 80 40 80 26.78 80 0 67.43 0"/>`;
+  <title>living</title>
+  <polygon class="cls-1" points="46.36 0 46.36 6.7 8.64 6.7 8.64 0 0 0 0 6.7 0 10 55 10 55 6.7 55 0 46.36 0"/>`;
 
 function gotData(incomingData){
   console.log(incomingData);
 
+  // sort out the json data
+  for(let i = 0; i < incomingData.length; i++){
+    if (incomingData[i].time == "Morning"){
+      wrapData[0].push(incomingData[i]);
+    }
+    if (incomingData[i].time == "Noon"){
+      wrapData[1].push(incomingData[i]);
+    }
+    if (incomingData[i].time == "Afternoon"){
+      wrapData[2].push(incomingData[i]);
+    }
+    if (incomingData[i].time == "Night"){
+      wrapData[3].push(incomingData[i]);
+    }
+  }
+
+  console.log(wrapData);
 
   // main body color = my mood
   function color(d,i){
@@ -98,84 +182,29 @@ function gotData(incomingData){
   // musicType
   function getMusicType(d,i){
     if (d.musicType=="Hip-hop") {
-      return `  <defs>
-          <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
-        </defs>
-        <title>hiphop</title>
-        <polygon class="cls-1" points="11.47 24.51 21.52 50.42 31.34 50.42 31.34 11.89 24.56 31.15 11.47 24.51"/>
-        <polygon class="cls-1" points="31.58 11.89 31.58 50.42 41.4 50.42 51.46 24.51 38.36 31.15 31.58 11.89"/>
-        <ellipse class="cls-1" cx="9.71" cy="21.35" rx="2.1" ry="2.99"/>
-        <ellipse class="cls-1" cx="31.58" cy="6.91" rx="1.99" ry="2.82"/>
-        <ellipse class="cls-1" cx="53.56" cy="21.19" rx="1.99" ry="2.82"/>
-        <polygon class="cls-2" points="16.05 60.92 1.12 30.92 16.18 1 46.18 1.08 61.12 31.09 46.05 61 16.05 60.92"/>`;
+      return hiphop;
     }
     else if (d.musicType=="R&B") {
-      return `    <defs>
-          <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
-        </defs><title>R&amp;amp;B</title>
-        <polygon class="cls-1" points="20.01 29.24 27.93 46.92 35.65 46.92 35.65 20.63 30.32 33.77 20.01 29.24"/>
-        <polygon class="cls-1" points="35.84 20.63 35.84 46.92 43.56 46.92 51.48 29.24 41.17 33.77 35.84 20.63"/>
-        <ellipse class="cls-1" cx="18.63" cy="27.09" rx="1.66" ry="2.04"/>
-        <ellipse class="cls-1" cx="35.84" cy="17.23" rx="1.56" ry="1.93"/>
-        <ellipse class="cls-1" cx="53.13" cy="26.97" rx="1.56" ry="1.93"/>
-        <polygon class="cls-2" points="56.05 61.37 35.57 51.59 15.5 62.18 18.94 40.54 2.23 25.6 24.84 22 34.58 2.18 45.11 21.59 67.84 24.29 51.74 39.89 56.05 61.37"/>`;
+      return rnb;
     }
     else if (d.musicType=="Rock") {
-      return `    <defs>
-          <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
-        </defs>
-        <title>Rock</title>
-        <polygon class="cls-1" points="9.25 26.9 17.63 44.35 25.81 44.35 25.81 18.39 20.16 31.37 9.25 26.9"/>
-        <polygon class="cls-1" points="26 18.39 26 44.35 34.18 44.35 42.56 26.9 31.64 31.37 26 18.39"/>
-        <ellipse class="cls-1" cx="7.79" cy="24.77" rx="1.75" ry="2.01"/>
-        <ellipse class="cls-1" cx="26" cy="15.04" rx="1.65" ry="1.9"/>
-        <ellipse class="cls-1" cx="44.31" cy="24.66" rx="1.65" ry="1.9"/>
-        <rect class="cls-2" x="1" y="1" width="50" height="60"/>`;
+      return rock;
     }
     else if (d.musicType=="Pop") {
-      return `    <defs>
-          <style>.cls-1{fill:#fff;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-2{fill:none;stroke-width:2px;}</style>
-        </defs>
-        <title>pop</title>
-        <polygon class="cls-1" points="10.03 24.8 20.62 48.47 30.97 48.47 30.97 13.27 23.82 30.86 10.03 24.8"/>
-        <polygon class="cls-1" points="31.22 13.27 31.22 48.47 41.56 48.47 52.16 24.8 38.36 30.86 31.22 13.27"/>
-        <ellipse class="cls-1" cx="8.18" cy="21.91" rx="2.22" ry="2.73"/>
-        <ellipse class="cls-1" cx="31.22" cy="8.71" rx="2.09" ry="2.58"/>
-        <ellipse class="cls-1" cx="54.37" cy="21.76" rx="2.09" ry="2.58"/>
-        <circle class="cls-2" cx="31" cy="31" r="30"/>`;
+      return pop;
     }
   }
 
   // location
   function getLocation(d,i){
     if (d.location=="Bed") {
-      return `  <defs>
-          <style>.cls-1{fill:#8c6239;}</style>
-        </defs>
-        <title>bed</title>
-        <polygon class="cls-1" points="51.32 0 51.32 18.52 0 18.52 0 30 60 30 60 18.52 60 0 51.32 0"/>`;
+      return bed;
     }else if (d.location=="Balcony") {
-      return `  <defs>
-          <style>.cls-1{fill:#fbb03b;}</style>
-        </defs>
-        <title>balcony</title>
-        <polygon class="cls-1" points="0 4 16.44 20.55 23.91 18.05 7.47 1.5 0 4"/>
-        <polygon class="cls-1" points="17.88 2.51 34.31 19.06 41.78 16.55 25.34 0 17.88 2.51"/>
-        <polygon class="cls-1" points="43.56 0 36.09 2.51 52.53 19.06 60 16.55 43.56 0"/>`;
+      return balcony;
     }else if (d.location=="Bathroom") {
-      return `  <defs>
-          <style>.cls-1{fill:#29abe2;}</style>
-        </defs>
-        <title>bathroom</title>
-        <ellipse class="cls-1" cx="6.23" cy="7.5" rx="6.23" ry="7.5"/>
-        <ellipse class="cls-1" cx="53.77" cy="7.5" rx="6.23" ry="7.5"/>
-        <ellipse class="cls-1" cx="30" cy="7.5" rx="6.23" ry="7.5"/>`;
+      return bathroom;
     }else if (d.location=="Living room") {
-      return `  <defs>
-          <style>.cls-1{fill:#ccc;}</style>
-        </defs>
-        <title>livingroom</title>
-        <polygon class="cls-1" points="67.43 0 67.43 26.78 12.57 26.78 12.57 0 0 0 0 26.78 0 40 80 40 80 26.78 80 0 67.43 0"/>`;
+      return livingroom;
     }
   }
 
@@ -185,13 +214,13 @@ function gotData(incomingData){
       return "translate(5,-50)";
     }
     if(d.location=="Bathroom"){
-      return "translate(-1,-20)";
+      return "translate(-3,-15)";
     }
     if(d.location=="Living room"){
-      return "translate(-8,40)";
+      return "translate(-6,36)";
     }
     if(d.location=="Bed"){
-      return "translate(5,50)";
+      return "translate(6,40)";
     }
   }
 
@@ -203,30 +232,32 @@ function gotData(incomingData){
     let x;
     let y;
 
+    let distribution = Math.floor(Math.random()*90);
+
     if(d.date==2.24){
-      x = 128;
+      x = 128+distribution;
     }else if(d.date==2.25){
-      x = 128*3;
+      x = 128*3+distribution;
     }else if(d.date==2.26){
-      x = 128*6;
+      x = 128*6+distribution;
     }else if(d.date==2.27){
-      x = 128*9;
+      x = 128*9+distribution;
     }else if(d.date==2.28){
-      x = 128*12;
+      x = 128*12+distribution;
     }else if(d.date==2.29){
-      x = 128*15;
+      x = 128*15+distribution;
     }else if(d.date==3.1){
-      x = 128*18;
+      x = 120*18+distribution;
     }
 
     if(d.time=="Morning"){
-      y = Math.floor(Math.random()*200+50);
+      y = Math.floor(Math.random()*100+20);
     }else if (d.time=="Noon") {
-      y = Math.floor(Math.random()*200+200);
+      y = Math.floor(Math.random()*100+200);
     }else if (d.time=="Afternoon") {
-      y = Math.floor(Math.random()*200+400);
+      y = Math.floor(Math.random()*100+400);
     }else if (d.time=="Night") {
-      y = Math.floor(Math.random()*200+600);
+      y = Math.floor(Math.random()*100+600);
     }
 
     return "translate("+ x +", "+ y +")"
@@ -240,7 +271,13 @@ function gotData(incomingData){
 
   datagroups.attr("transform",groupPos);
 
-  let data = datagroups.html(getMusicType);
+  datagroups.html(crown);
+
+  let shapeGroup = datagroups.append('g')
+        .attr("class","shapeGroup")
+;
+
+  let type = shapeGroup.html(getMusicType);
 
   let locationGroup = datagroups.append('g')
         .attr("class","locationGroup")

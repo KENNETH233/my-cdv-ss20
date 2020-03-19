@@ -86,9 +86,32 @@ viz.append("text")
   .style("strokeWeight","bold")
 ;
 
+viz.append("text")
+  .attr("x",1350)
+  .attr("y",150)
+  .text("Type")
+  .style("font-family","sans-serif")
+  .style("font-size",40)
+  .style("strokeWeight","bold")
+;
 
+viz.append("text")
+  .attr("x",1720)
+  .attr("y",150)
+  .text("Location")
+  .style("font-family","sans-serif")
+  .style("font-size",40)
+  .style("strokeWeight","bold")
+;
 
-
+viz.append("text")
+  .attr("x",2150)
+  .attr("y",150)
+  .text("Mood")
+  .style("font-family","sans-serif")
+  .style("font-size",40)
+  .style("strokeWeight","bold")
+;
 
 
 let crown = `  <defs>
@@ -166,6 +189,20 @@ function gotData(incomingData){
   console.log(afternoonSet);
   console.log(nightSet);
 
+  function getColor(d,i){
+    if (d.mood == "Peaceful") {
+      return "#D05803";
+    }
+    if (d.mood == "Tired") {
+      return "#42393B";
+    }
+    if (d.mood == "Energetic") {
+      return "#ED9F30";
+    }
+    if (d.mood == "Sleepy") {
+      return "#B7D7D7";
+    }
+  }
 
   function findDate(d,i){
     return d.date;
@@ -206,10 +243,10 @@ function gotData(incomingData){
     }
   }
 
-  // location feature's location
+  // translate location graphics
   function locationFeature(d,i){
     if(d.location=="Balcony"){
-      return "translate(5,-50)";
+      return "translate(-5,-15)";
     }
     if(d.location=="Bathroom"){
       return "translate(-8,-15)";
@@ -267,6 +304,8 @@ function gotData(incomingData){
 
   morningGroups.attr("transform",groupPos);
   morningGroups.html(crown);
+
+  morningGroups.select("path").attr("fill",getColor);
 
   let morningType = morningGroups.append('g')
         .attr("class","morningType")
@@ -399,43 +438,145 @@ nightGroups.append("text")
   .attr("transform","rotate(90)")
 ;
 
-//----------------------------------------------------------------------------
-//   let datagroups = viz.selectAll(".datagroup").data(incomingData).enter()
-//     .append("g")
-//       .attr("class","datagroup")
-//   ;
-//
-//   datagroups.attr("transform",groupPos);
-//
-//   datagroups.html(crown);
-//
-//   let shapeGroup = datagroups.append('g')
-//         .attr("class","shapeGroup")
-// ;
-//
-//   let type = shapeGroup.html(getMusicType);
-//
-//   let locationGroup = datagroups.append('g')
-//         .attr("class","locationGroup")
-//   ;
-//
-//   let location = locationGroup.html(getLocation)
-//         .attr("transform", locationFeature)
-//   ;
-// //----------------------------------------------------------------------------
-  // datagroups.append("text")
-  //   .attr("x",0)
-  //   .attr("y",0)
-  //   .attr("fill","white")
-  //   .text(getDate)
-  //   .style("font-family","sans-serif")
-  // ;
+
+
+// Collect data  type location mood
+
+  let hippopcount =0;
+  let rnbcount =0;
+  let rockcount =0;
+  let popcount =0;
+  let balconycount =0;
+  let bathroomcount =0;
+  let livingroomcount =0;
+  let bedcount =0;
+  let peacefulcount =0;
+  let energeticcount =0;
+  let tiredcount =0;
+  let sleepycount =0;
+
+  for(let i =0; i<incomingData.length;i++){
+    //type count
+    if (incomingData[i].musicType=="Hip-hop") {
+      hippopcount +=1;
+    }
+    else if (incomingData[i].musicType=="R&B") {
+      rnbcount +=1;
+    }
+    else if (incomingData[i].musicType=="Rock") {
+      rockcount +=1;
+    }
+    else if (incomingData[i].musicType=="Pop") {
+      popcount +=1;
+    }
+
+    //location count
+    if (incomingData[i].location=="Balcony") {
+      balconycount +=1;
+    }
+    else if (incomingData[i].location=="Bathroom") {
+      bathroomcount +=1;
+    }
+    else if (incomingData[i].location=="Living room") {
+      livingroomcount +=1;
+    }
+    else if (incomingData[i].location=="Bed") {
+      bedcount +=1;
+    }
+
+    //mood count
+    if (incomingData[i].mood=="Peaceful") {
+      peacefulcount +=1;
+    }
+    else if (incomingData[i].mood=="Tired") {
+      tiredcount +=1;
+    }
+    else if (incomingData[i].mood=="Sleepy") {
+      sleepycount +=1;
+    }
+    else if (incomingData[i].mood=="Energetic") {
+      energeticcount +=1;
+    }
+  }
+
+
+  // second page
+
+  function circlePos(){
+    return "translate(1400,400)";
+  }
+
+  let typecount = [hippopcount,rnbcount,rockcount,popcount];
+  let locationcount = [balconycount,bathroomcount,livingroomcount,bedcount];
+  let moodcount = [peacefulcount,energeticcount,tiredcount,sleepycount];
+  typecount.sort(function(a, b){return b-a});
+  locationcount.sort(function(a, b){return b-a});
+  moodcount.sort(function(a, b){return b-a});
+
+  console.log(typecount);
+  console.log(locationcount);
+  console.log(moodcount);
+
+  let scaleR = d3.scaleLinear().domain([0,10]).range([20,200]);
+
+  function getR(data){
+    return scaleR(data);
+  }
+
+  function returnText(data){
+    return data;
+  }
+
+  // draw type circle
+  let typeGroup = viz.selectAll(".typeGroup").data(typecount).enter()
+      .append("g")
+        .attr("class","typeGroup")
+
+  typeGroup.attr("transform",circlePos);
+
+  typeGroup.append("circle")
+    .attr("cx",0)
+    .attr("cy",0)
+    .attr("r",getR)
+    .attr("stroke","black")
+    .attr("fill","white")
+  ;
+
+  //draw location circle
+  let locationGroup = viz.selectAll(".locationGroup").data(locationcount).enter()
+      .append("g")
+        .attr("class","locationGroup")
+
+  locationGroup.attr("transform",circlePos);
+
+  locationGroup.append("circle")
+    .attr("cx",400)
+    .attr("cy",0)
+    .attr("r",getR)
+    .attr("stroke","white")
+    .attr("fill","black")
+  ;
+
+  //draw mood circle
+  let moodGroup = viz.selectAll(".moodGroup").data(moodcount).enter()
+      .append("g")
+        .attr("class","moodGroup")
+
+  moodGroup.attr("transform",circlePos);
+
+  locationGroup.append("circle")
+    .attr("cx",800)
+    .attr("cy",0)
+    .attr("r",getR)
+    .attr("stroke","black")
+    .attr("fill","white")
+  ;
+
+
+
+
 
 }
-
-
-
-
 
 
 

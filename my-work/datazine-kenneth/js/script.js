@@ -307,6 +307,13 @@ function gotData(incomingData){
 
   morningGroups.select("path").attr("fill",getColor);
 
+  morningGroups.append("circle")
+    .attr("cx",16)
+    .attr("cy",19)
+    .attr("r",5)
+    .attr("fill",getColor)
+  ;
+
   let morningType = morningGroups.append('g')
         .attr("class","morningType")
 
@@ -343,6 +350,13 @@ let noonGroups = viz.selectAll(".noonGroup").data(noonSet).enter()
 noonGroups.attr("transform",groupPos);
 noonGroups.html(crown);
 
+noonGroups.append("circle")
+  .attr("cx",16)
+  .attr("cy",19)
+  .attr("r",5)
+  .attr("fill",getColor)
+;
+
 let noonType = noonGroups.append('g')
       .attr("class","noonType")
     ;
@@ -378,6 +392,13 @@ let afternoonGroups = viz.selectAll(".afternoonGroup").data(afternoonSet).enter(
 afternoonGroups.attr("transform",groupPos);
 afternoonGroups.html(crown);
 
+afternoonGroups.append("circle")
+  .attr("cx",16)
+  .attr("cy",19)
+  .attr("r",5)
+  .attr("fill",getColor)
+;
+
 let afternoonType = afternoonGroups.append('g')
       .attr("class","afternoonType")
     ;
@@ -412,6 +433,13 @@ let nightGroups = viz.selectAll(".nightGroup").data(nightSet).enter()
 
 nightGroups.attr("transform",groupPos);
 nightGroups.html(crown);
+
+nightGroups.append("circle")
+  .attr("cx",16)
+  .attr("cy",19)
+  .attr("r",5)
+  .attr("fill",getColor)
+;
 
 let nightType = nightGroups.append('g')
       .attr("class","nightType")
@@ -517,15 +545,64 @@ nightGroups.append("text")
   console.log(locationcount);
   console.log(moodcount);
 
+  console.log("hippop:",hippopcount);
+  console.log("rnb:",rnbcount);
+  console.log("rock:",rockcount);
+  console.log("pop:",popcount);
+  console.log("balcony:",balconycount);
+  console.log("bathroom:",bathroomcount);
+  console.log("livingroom:",livingroomcount);
+  console.log("bed:",bedcount);
+  console.log("peaceful:",peacefulcount);
+  console.log("energetic:",energeticcount);
+  console.log("tired:",tiredcount);
+  console.log("sleepy:",sleepycount);
+
+  // return different color based on locationFeature
+
+  function typeColor(d,i){
+    if (i==0) {
+      return "#423F21"
+    }else if (i==1) {
+      return "#C4C9C8"
+    }else if (i==2) {
+      return "#C4C9C8"
+    }else if (i==3) {
+      return "#8F8D6E"
+    }
+  }
+
+  function locationColor(d,i){
+    if (i==0) {
+      return "#EF9A30"
+    }else if (i==1) {
+      return "#E2DEBF"
+    }else if (i==2) {
+      return "#D05803"
+    }else if (i==3) {
+      return "#773A13"
+    }
+  }
+
+  function moodColor(d,i){
+    if (i==0) {
+      return "#867391"
+    }else if (i==1) {
+      return "#AFC4E5"
+    }else if (i==2) {
+      return "lightgreen"
+    }else if (i==3) {
+      return "#4B3C45"
+    }
+  }
+
+  // Scale radius of circles
   let scaleR = d3.scaleLinear().domain([0,10]).range([20,200]);
 
   function getR(data){
     return scaleR(data);
   }
 
-  function returnText(data){
-    return data;
-  }
 
   // draw type circle
   let typeGroup = viz.selectAll(".typeGroup").data(typecount).enter()
@@ -534,12 +611,13 @@ nightGroups.append("text")
 
   typeGroup.attr("transform",circlePos);
 
+
   typeGroup.append("circle")
     .attr("cx",0)
     .attr("cy",0)
     .attr("r",getR)
     .attr("stroke","black")
-    .attr("fill","white")
+    .attr("fill",typeColor)
   ;
 
   //draw location circle
@@ -554,7 +632,7 @@ nightGroups.append("text")
     .attr("cy",0)
     .attr("r",getR)
     .attr("stroke","white")
-    .attr("fill","black")
+    .attr("fill",locationColor)
   ;
 
   //draw mood circle
@@ -564,12 +642,12 @@ nightGroups.append("text")
 
   moodGroup.attr("transform",circlePos);
 
-  locationGroup.append("circle")
+  moodGroup.append("circle")
     .attr("cx",800)
     .attr("cy",0)
     .attr("r",getR)
     .attr("stroke","black")
-    .attr("fill","white")
+    .attr("fill",moodColor)
   ;
 
 

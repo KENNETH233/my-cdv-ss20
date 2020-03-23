@@ -1,8 +1,8 @@
 let w=2400;
 let h=800;
-      // morning, noon, afternoon, night
-let wrapData = [[],[],[],[]];
 
+
+// Separate data into four group  morning, noon, afternoon, night
 let morningSet = [];
 let noonSet = [];
 let afternoonSet = [];
@@ -17,7 +17,7 @@ let viz = d3.select("#container")
     .style("background-color","#B7D7D7")
 ;
 
-// four time periods
+// four time periods background
 viz.append("rect")
   .attr("x",0)
   .attr("y",0)
@@ -50,6 +50,7 @@ viz.append("rect")
   .attr("fill","#977D53")
 ;
 
+// time labels
 viz.append("text")
   .attr("x",20)
   .attr("y",100)
@@ -86,6 +87,7 @@ viz.append("text")
   .style("strokeWeight","bold")
 ;
 
+// labels for the right page
 viz.append("text")
   .attr("x",1350)
   .attr("y",150)
@@ -113,7 +115,7 @@ viz.append("text")
   .style("strokeWeight","bold")
 ;
 
-
+// svg value
 let crown = `  <defs>
     <style>.cls-1{fill:#fff;stroke:#000;stroke-miterlimit:10;}</style>
   </defs>
@@ -189,6 +191,7 @@ function gotData(incomingData){
   console.log(afternoonSet);
   console.log(nightSet);
 
+  // mood: get color for the circle inside each crown
   function getColor(d,i){
     if (d.mood == "Peaceful") {
       return "#D05803";
@@ -204,17 +207,8 @@ function gotData(incomingData){
     }
   }
 
-  function findDate(d,i){
-    return d.date;
-  }
-  let minDate = d3.min(incomingData,findDate);
-  console.log(minDate);
 
-  let maxDate = d3.max(incomingData,findDate);
-
-  let xScale = d3.scaleTime().domain([minDate,maxDate]).range([30,2000]);
-
-  // musicType
+  // get musicType
   function getMusicType(d,i){
     if (d.musicType=="Hip-hop") {
       return hiphop;
@@ -230,7 +224,7 @@ function gotData(incomingData){
     }
   }
 
-  // location
+  // get location
   function getLocation(d,i){
     if (d.location=="Bed") {
       return bed;
@@ -279,6 +273,8 @@ function gotData(incomingData){
     return d.date;
   }
 
+
+  // display data crown
   function groupPos(d,i){
     let x = 200+1200/9 * i;
     let y;
@@ -296,7 +292,7 @@ function gotData(incomingData){
     return "translate("+ x +", "+ y +")"
   }
 
-//Morning
+//Morning group
   let morningGroups = viz.selectAll(".morningGroup").data(morningSet).enter()
       .append("g")
         .attr("class","morningGroup")

@@ -384,11 +384,13 @@ document.getElementById("buttonB").addEventListener("click", remove);
 function removeAndAdd(){
   removeAndAddDatapoints(1,1);
 
+  // update dataset
   elementsForPage = graphGroup.selectAll(".datapoint").data(data,assignKey);
 
   enteringElements = elementsForPage.enter();
   exitingElements = elementsForPage.exit();
 
+  // update xAxis
   allNames = data.map(function(d){return d.key});
   xScale.domain(allNames);
   xAxis = d3.axisBottom(xScale);
@@ -396,16 +398,18 @@ function removeAndAdd(){
   xAxisGroup.transition().delay(200).call(xAxis).selectAll("text").attr("font-size", 18);
   xAxisGroup.selectAll("line").remove();
 
+  // update yAxis
   yMax = d3.max(data, function(d){return d.value});
   yDomain = [0, yMax+yMax*0.1];
   yScale.domain(yDomain);
 
 
-
+  // update all elements on page
   elementsForPage.transition().delay(200).duration(1000).attr("transform", function(d, i){
       return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
   });
 
+  // exiting elements remove
   exitingElements.select("rect")
     .attr("fill","lightblue")
     .transition()
@@ -421,7 +425,7 @@ function removeAndAdd(){
 
   exitingElements.transition().delay(1000).remove();
 
-
+  // animation
   elementsForPage.select("rect")
    .transition()
    .delay(200)
@@ -437,6 +441,7 @@ function removeAndAdd(){
    })
   ;
 
+  // update entering Elements
   enteringDataGroups = enteringElements.append("g").classed("datapoint", true);
 
   enteringDataGroups.attr("transform", function(d, i){
@@ -472,6 +477,7 @@ document.getElementById("buttonC").addEventListener("click", removeAndAdd);
 function sortData(){
   sortDatapoints();
 
+  // update dataset
   elementsForPage = graphGroup.selectAll(".datapoint").data(data,assignKey);
 
   // update data and scale domain

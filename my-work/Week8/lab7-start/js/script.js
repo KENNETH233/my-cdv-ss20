@@ -596,3 +596,42 @@ function shuffleData(){
 
 }
 document.getElementById("buttonE").addEventListener("click", shuffleData);
+
+function changeColor(){
+  elementsForPage = graphGroup.selectAll(".datapoint").data(data,assignKey);
+
+  elementsForPage.transition().delay(200).duration(1000).attr("transform", function(d, i){
+    return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
+  });
+
+  elementsForPage.select("rect")
+   .transition()
+   .delay(200)
+   .duration(500)
+   .attr("fill",randomColor)
+   .attr("width", function(){
+      return xScale.bandwidth();
+   })
+   .attr("y", function(d,i){
+     return -yScale(d.value);
+   })
+   .attr("height", function(d,i){
+     return yScale(d.value);
+   })
+;
+
+function randomColor(){
+  let color = ["yellow","red","blue","purple","brown","grey","lightblue","lightred","lightgrey","black"];
+  let index = Math.floor(Math.random() * 10);
+  return color[index];
+}
+
+}
+
+// function randomColor(){
+//   let color = ["yellow","red","blue","purple","brown","grey","lightblue","lightred","lightgrey","black"];
+//   let index = Math.floor(Math.ramdom() * 10);
+//   return color[index];
+// }
+
+document.getElementById("buttonF").addEventListener("click",changeColor)

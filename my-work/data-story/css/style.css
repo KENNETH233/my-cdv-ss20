@@ -1,0 +1,67 @@
+body{
+  margin:0;
+}
+
+h1{
+  font-size: 56px;
+  font-family: sans-serif;
+}
+
+h2{
+  font-size: 40px;
+  font-family: sans-serif;
+}
+
+h3{
+  font-size:40px;
+  font-family: sans-serif;
+  margin-top: 50vh;
+}
+
+#viz{
+  width: 48%;
+  height: 30%;
+  position: fixed;
+  top: 12vh;
+  left: 44%;
+}
+
+#navigation{
+  margin-left: auto;
+  margin-top: 2%;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  left: 10%;
+  width:80%;
+  height:6%;
+  position: fixed;
+}
+
+.navi-bar{
+  display: block;
+  text-align: right;
+  color:black;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+#context{
+  width: 35%;
+  /* background:lightgrey; */
+  position: relative;
+  margin-top: 6%;
+  padding-top: 30vh;
+  left: 10%;
+  z-index: 1;
+}
+
+#tittle{
+  width:150%;
+}
+
+#scroll{
+  height:100vh;
+  z-index: 1;
+  overflow: scroll;
+}

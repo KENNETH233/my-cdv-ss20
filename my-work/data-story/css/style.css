@@ -13,17 +13,29 @@ h2{
 }
 
 h3{
-  font-size:40px;
+  font-size:36px;
   font-family: sans-serif;
   margin-top: 50vh;
 }
 
+h4{
+  font-size:24px;
+  font-family: sans-serif;
+}
+
+p{
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 200%;
+  /* color: #303030; */
+}
+
 #viz{
-  width: 48%;
-  height: 30%;
+  width: 50%;
+  height: 50%;
   position: fixed;
-  top: 12vh;
-  left: 44%;
+  top: 15vh;
+  left: 50%;
 }
 
 #navigation{

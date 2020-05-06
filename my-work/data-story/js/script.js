@@ -20,15 +20,15 @@ let yAxisGroup = viz.append("g").attr("class", "yaxis").attr("opacity", 1);
 
 let salingChart = viz.append("g")
     .attr("class", "salingChart")
-    .attr("opacity", 1)
-    .attr("visibility", "visable")
+    .attr("opacity", 0)
+    .attr("visibility", "visible")
   ;
 
-let profitChart = viz.append("g")
-    .attr("class", "profitChart")
-    .attr("opacity", 0)
-    .attr("visibility", "hidden")
-  ;
+// let profitChart = viz.append("g")
+//     .attr("class", "profitChart")
+//     .attr("opacity", 0)
+//     .attr("visibility", "hidden")
+//   ;
 
 let timeFormat = d3.timeParse("%m/%d/%Y");
 // let test = timeFormat("2/6/17");
@@ -164,104 +164,95 @@ d3.json("salingData.json").then(function(salesData){
       //         })
 
 //---------------------------------------------------------------------------------------------
+  // X SCALE
+  let minDate = d3.min(filteredData, function(d){
+    return d.releaseDate;
+  });
 
-      function showSales(){
-        console.log(salesData);
-        console.log(incomingData);
+  let maxDate = d3.max(filteredData, function(d){
+    return d.orderDate;
+  });
 
-        viz.select("salingChart")
-          .transition()
-          .duration(1000)
-          .attr("opacity",1)
-          .attr("visability","visable")
-        ;
+  let xDomain=[minDate,maxDate];
+  let xScale = d3.scaleTime().domain(xDomain).range([padding, w-(padding*2)]);
+
+  let xAxisYPos = h - 30;
+
+  // Y SCALE
+  let maxSales = d3.max(salesData,function(d){
+    return d.salePrice;
+  })
+
+  let yDomain = [0,maxSales];
+
+  let yScale = d3.scaleLinear().domain(yDomain).range([xAxisYPos, padding]);
+
+// shoes size scale
+  let minSize = d3.min(filteredData,function(d){
+    return d.shoeSize;
+  })
+
+  let maxSize = d3.max(filteredData,function(d){
+    return d.shoeSize;
+  })
+
+  let shoeDomain = [minSize,maxSize];
+
+  let shoeScale = d3.scaleLinear().domain(shoeDomain).range([3,10]);
+
+//----------------------------------------------------------------------//
+
+  function showSales(){
+    console.log(salesData);
+    console.log(incomingData);
+
+    // viz.select("salingChart")
+  //   .transition()
+    //   .duration(1000)
+    //   .attr("opacity",1)
+    //   .attr("visibility","visible")
+    // ;
+
+    // viz.selectAll(".xaxis").attr("opacity",1);
+    // viz.selectAll(".yaxis").attr("opacity",1);
+    //Draw axis
+
+    let yAxis = d3.axisLeft(yScale);
+    yAxisGroup.call(yAxis);
+    yAxisGroup.attr("transform", "translate("+padding+",0)");
+    yAxisGroup.selectAll("line").remove();
+
+    let xAxis = d3.axisBottom(xScale);
+    xAxisGroup.call(xAxis);
+    let xAxisYPos = h - 30;
+    xAxisGroup.attr("transform", "translate(0,"+xAxisYPos+")");
+    xAxisGroup.selectAll("line").remove();
 
 
-        // X SCALE
-        let minDate = d3.min(filteredData, function(d){
-          return d.releaseDate;
-        });
+    salingChart.selectAll(".purchases").data(filteredData).enter()
+      .append("g")
+        .attr("class","purchases")
+    ;
 
-        //console.log(minDate);
-
-        let maxDate = d3.max(filteredData, function(d){
-          return d.orderDate;
-        });
-
-        // console.log(maxDate);
-
-        let xDomain=[minDate,maxDate];
-        let xScale = d3.scaleTime().domain(xDomain).range([padding, w-(padding*2)]);
-
-        // console.log(xScale(timeFormat("2/16/16")));
-
-        //Draw x axis
-        let xAxis = d3.axisBottom(xScale);
-
-        xAxisGroup.call(xAxis);
-
-        let xAxisYPos = h - 30;
-        xAxisGroup.attr("transform", "translate(0,"+xAxisYPos+")");
-
-        // Y SCALE
-        let maxSales = d3.max(salesData,function(d){
-          return d.salePrice;
-        })
-
-        console.log("maxSales",maxSales);
-
-        let yDomain = [0,maxSales];
-
-        let yScale = d3.scaleLinear().domain(yDomain).range([xAxisYPos, padding]);
-
-        let test = yScale(3000);
-        console.log(test);
-
-        let yAxis = d3.axisLeft(yScale);
-        yAxisGroup.call(yAxis);
-        yAxisGroup.attr("transform", "translate("+padding+",0)");
-
-        // shoes size scale
-        let minSize = d3.min(filteredData,function(d){
-          return d.shoeSize;
-        })
-
-        console.log(minSize);
-
-        let maxSize = d3.max(filteredData,function(d){
-          return d.shoeSize;
-        })
-
-        console.log(maxSize);
-
-        let shoeDomain = [minSize,maxSize];
-
-        let shoeScale = d3.scaleLinear().domain(shoeDomain).range([3,10]);
-
-        salingChart.selectAll(".purchases").data(filteredData).enter()
-          .append("g")
-            .attr("class","purchases")
-        ;
-
-        let purchases = salingChart.selectAll(".purchases")
-              .append("circle")
-                .attr("cx",function(d){
-                  return xScale(d.releaseDate)
-                })
-                .attr("cy",function(d){
-                  return yScale(d.salePrice)
-                })
-                .attr("r",function(d){
-                  return shoeScale(d.shoeSize);
-                })
-                .style("opacity",0.5)
-                .attr("fill",function(d){
-                  if(d.Brand==" Yeezy"){
-                    return "lightbrown"
-                  }else {
-                    return "orange"
-                  }
-                })
+    let purchases = salingChart.selectAll(".purchases")
+          .append("circle")
+            .attr("cx",function(d){
+              return xScale(d.releaseDate)
+            })
+            .attr("cy",function(d){
+              return yScale(d.salePrice)
+            })
+            .attr("r",function(d){
+              return shoeScale(d.shoeSize);
+            })
+            .style("opacity",0.7)
+            .attr("fill",function(d){
+              if(d.Brand==" Yeezy"){
+                return "#e5dab7"
+              }else {
+                return "#FF6600"
+              }
+            })
 
       }
 
@@ -271,14 +262,21 @@ d3.json("salingData.json").then(function(salesData){
       		// el.classList.add('entered');
           console.log('a #Market element entered');
           showSales();
+          viz.selectAll(".salingChart").attr("opacity",1);
+          viz.selectAll(".xaxis").attr("opacity",1);
+          viz.selectAll(".yaxis").attr("opacity",1);
       	},
-      	// exit: function(el) {
-      	// 	el.classList.remove('entered');
-      	// },
+      	exit: function(el) {
+      		// el.classList.remove('entered');
+          // showSales();
+          viz.selectAll(".salingChart").attr("opacity",0);
+          viz.selectAll(".xaxis").attr("opacity",0);
+          viz.selectAll(".yaxis").attr("opacity",0);
+      	},
       	// progress: function(el, progress) {
       	// 	el.style.opacity = progress;
       	// },
-      	offset: 0.5, // enter at middle of viewport
+      	offset: 0.35, // enter at middle of viewport
       });
 
       function showProfit(){
@@ -288,9 +286,6 @@ d3.json("salingData.json").then(function(salesData){
 
 
       function showMap(){
-        // console.log(geoData);
-        // console.log(incomingData);
-
         incomingData = incomingData.map(function(d,i){
           d.counts = Number(d.counts);
           return d;
@@ -308,12 +303,6 @@ d3.json("salingData.json").then(function(salesData){
 
         // PRINT DATA
         console.log(geoData);
-
-        // SCALES (to translate data values to pixel values)
-        // let xDomain = d3.extent(incomingData, function(d){ return Number(d.year); })
-        // let xScale = d3.scaleLinear().domain(xDomain).range([padding,w-padding]);
-        // let yDomain = d3.extent(incomingData, function(d){ return Number(d.birthsPerThousand); })
-        // let yScale = d3.scaleLinear().domain(yDomain).range([h-padding,padding]);
 
         let projection = d3.geoAlbersUsa() // citation: https://d3js.org.cn/document/d3-geo/#composite-projections
           .translate([w/2,h/2])
@@ -415,7 +404,8 @@ d3.json("salingData.json").then(function(salesData){
         exit: function(el) {
         	el.classList.remove('entered');
           console.log('a #Changes element exited');
-          showSales();
+          // showMap();
+          viz.selectAll(".state").transition().duration(500).remove();
         },
         // progress: function(el, progress) {
         // 	el.style.opacity = progress;

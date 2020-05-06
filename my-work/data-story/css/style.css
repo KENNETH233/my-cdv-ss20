@@ -30,6 +30,12 @@ p{
   /* color: #303030; */
 }
 
+#scroll{
+  height:100vh;
+  z-index: 1;
+  overflow: scroll;
+}
+
 #viz{
   width: 50%;
   height: 50%;

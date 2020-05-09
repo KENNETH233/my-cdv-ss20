@@ -301,6 +301,7 @@ d3.json("salingData.json").then(function(salesData){
 
   let priceScale = d3.scaleLinear().domain(priceDomain).range([10,30]);
 
+  //Draw axis
   let yAxis = d3.axisLeft(yScale);
   yAxisGroup.call(yAxis);
   yAxisGroup.attr("transform", "translate("+padding+",0)");
@@ -317,117 +318,149 @@ d3.json("salingData.json").then(function(salesData){
 //----------------------------------------------------------------------//
 // visualization
 
-profitChart.selectAll(".profit").data(filteredData).enter()
-  .append("g")
-    .attr("class","profit")
-;
+// profitChart.selectAll(".profit").data(filteredData).enter()
+//   .append("g")
+//     .attr("class","profit")
+// ;
+//
+// let resale = profitChart.selectAll(".profit")
+//   .append("circle")
+//     .attr("cx",w/2)
+//     .attr("cy",h/2)
+//     .attr("r",function(filteredData){
+//       return priceScale(filteredData.salePrice);
+//     })
+//     .attr("fill",function(filteredData){
+//       if(filteredData.Brand==" Yeezy"){
+//         return "#e5dab7"
+//       }else {
+//         return "#FF6600"
+//       }
+//     })
+//     .style("opacity",0.7)
+//   ;
 
-let resale = profitChart.selectAll(".profit")
-  .append("circle")
-    .attr("cx",w/2)
-    .attr("cy",h/2)
-    .attr("r",function(filteredData){
-      return priceScale(filteredData.salePrice);
-    })
-    .attr("fill",function(filteredData){
-      if(filteredData.Brand==" Yeezy"){
-        return "#e5dab7"
-      }else {
-        return "#FF6600"
-      }
-    })
-    .style("opacity",0.7)
+//-----------DRAW EVERYTHING OUT FIRST--------------//
+  // Sneaker Before
+  let sneakerBefore1 = d3.select(".sneakerBefore").append("g")
+      .attr("class","sneakerBefore1")
+    ;
+  sneakerBefore1.html(aj1);
+  //transform sneakerBefore1
+  d3.select(".sneakerBefore1")
+    .attr("transform", "scale(0.45)")
   ;
 
-  function sneakerBefore(){
-
-    let sneakerBefore1 = d3.selectAll(".sneakerBefore").append("g")
-        .attr("class","aj1")
-        .translate(w/3,h/3)
-      ;
-    sneakerBefore1.html(aj1);
-
-    let sneakerBefore2 = d3.selectAll(".sneakerBefore").append("g")
-        .attr("class","aj11")
-        .translate(w/4*3,h/3*2)
-      ;
-    sneakerBefore2.html(aj11);
-  }
+  let sneakerBefore2 = d3.select(".sneakerBefore").append("g")
+      .attr("class","sneakerBefore2")
+    ;
+  sneakerBefore2.html(aj11);
+  //transform sneakerBefore2
+  d3.select(".sneakerBefore2")
+    .attr("transform", "scale(0.45)translate(1700,300)scale(-1,1)")
+  ;
 
   enterView({
     selector: '#Before',
     enter: function(el) {
       // el.classList.add('entered');
-      viz.selectAll(".sneakerBefore").transition().duration(1000).attr("opacity",1);
+      viz.selectAll(".sneakerBefore").transition().duration(800).attr("opacity",1);
     },
     exit: function(el) {
       // el.classList.remove('entered');
-      // showSales();
-      viz.selectAll(".sneakerBefore").transition().duration(1000).attr("opacity",0);
+      viz.selectAll(".sneakerBefore").transition().duration(800).attr("opacity",0);
     },
     // progress: function(el, progress) {
     // 	el.style.opacity = progress;
     // },
     offset: 0.5, // enter at middle of viewport
   });
+  //----------------------------------------------//
 
+  //Sneaker Now
 
+  //ow logo
+  let owLogo = d3.select(".sneakerNow").append("g")
+      .attr("class","offWhite")
+    ;
+  owLogo.html(offWhite);
 
-  function sneakerNow(){
-    let owLogo =sneakerNow.append("g")
-        .attr("class","offWhite")
-        .translate(w/3,h/3)
-      ;
-    owLogo.html(offWhite);
+  d3.select(".offWhite")
+    .attr("transform", "scale(0.3)")
+  ;
 
-    let ow90 = sneakerNow.append("g")
-        .attr("class","airmax90")
-        .translate(w/3*2,h/3)
-      ;
-    ow90.html(airmax90);
+  //ow90
+  let ow90 = d3.select(".sneakerNow").append("g")
+      .attr("class","airmax90")
+    ;
 
-    let  ow97 = sneakerNow.append("g")
-        .attr("class","airmax97")
-        .translate(w,h/2)
-      ;
-    ow97.html(airmax97);
+  d3.select(".airmax90")
+    .attr("transform", "scale(0.3)translate(150,400)")
+  ;
+  ow90.html(airmax90);
 
-    let yzyLogo = sneakerNow.append("g")
-        .attr("class","yeezy")
-        .translate(w/3,h/3*2)
-      ;
-    yzyLogo.html(yeezy);
+  //ow97
+  let ow97 = d3.select(".sneakerNow").append("g")
+      .attr("class","airmax97")
+    ;
 
-    let yeezy1 = sneakerNow.append("g")
-        .attr("class","yeezy350")
-        .translate(w/3*2,h/3*2)
-      ;
-    yeezy1.html(yeezy350);
+  d3.select(".airmax97")
+    .attr("transform", "scale(0.25)translate(150,1200)")
+  ;
+  ow97.html(airmax97);
 
-    let yeezy2 = sneakerNow.append("g")
-        .attr("class","yeezy750")
-        .translate(w,h/3*2)
-      ;
-    yeezy2.html(yeezy750);
-  }
+  //yeezy logo
+  let yzylogo = d3.select(".sneakerNow").append("g")
+      .attr("class","yeezy")
+    ;
+
+  d3.select(".yeezy")
+    .attr("transform", "scale(0.95)translate(400,-60)")
+  ;
+  yzylogo.html(yeezy);
+
+  // yeezy350
+  let yeezy1 = d3.select(".sneakerNow").append("g")
+      .attr("class","yeezy350")
+    ;
+
+  d3.select(".yeezy350")
+    .attr("transform", "scale(0.3)translate(1500,150)")
+    .attr("opacity",0.6)
+  ;
+  yeezy1.html(yeezy350);
+
+  //yeezy750
+  let yeezy2 = d3.select(".sneakerNow").append("g")
+      .attr("class","yeezy750")
+    ;
+
+  d3.select(".yeezy750")
+    .attr("transform", "scale(0.27)translate(1700,900)")
+    .attr("opacity",0.6)
+  ;
+  yeezy2.html(yeezy750);
+
+  ;
 
   enterView({
-    selector: '#Now',
-    enter: function(el) {
-      // el.classList.add('entered');
-      viz.selectAll(".sneakerBefore").transition().duration(1000).attr("opacity",0);
-      viz.selectAll(".sneakerNow").transition().duration(1000).attr("opacity",1);
-    },
-    exit: function(el) {
-      // el.classList.remove('entered');
-      // showSales();
-      viz.selectAll(".sneakerNow").transition().duration(1000).attr("opacity",0);
-    },
-    // progress: function(el, progress) {
-    // 	el.style.opacity = progress;
-    // },
-    offset: 0.5, // enter at middle of viewport
-  });
+  selector: '#Now',
+  enter: function(el) {
+    // el.classList.add('entered');
+    viz.selectAll(".sneakerBefore").transition().duration(800).attr("opacity",0);
+    viz.selectAll(".sneakerNow").transition().duration(800).attr("opacity",1);
+  },
+  exit: function(el) {
+    // el.classList.remove('entered');
+    viz.selectAll(".sneakerNow").transition().duration(800).attr("opacity",0);
+    viz.selectAll(".sneakerBefore").transition().duration(800).attr("opacity",1);
+  },
+  // progress: function(el, progress) {
+  // 	el.style.opacity = progress;
+  // },
+  offset: 0.5, // enter at middle of viewport
+});
+
 
 
   function showSales(){

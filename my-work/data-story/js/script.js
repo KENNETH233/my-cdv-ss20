@@ -15,6 +15,8 @@ let xScale, yScale;
 
 let xAxisGroup = viz.append("g").attr("class", "xaxis").attr("opacity", 0);
 let yAxisGroup = viz.append("g").attr("class", "yaxis").attr("opacity", 0);
+let profitAxisGroup = viz.append("g").attr("class", "profitaxis").attr("opacity", 1);
+
 
 //
 
@@ -295,7 +297,7 @@ d3.json("salingData.json").then(function(salesData){
   let maxPrice = d3.max(filteredData,function(d){
     return d.salePrice;
   })
-  console.log(maxPrice);
+  // console.log(maxPrice);
 
   let priceDomain = [minPrice,maxPrice];
 
@@ -313,32 +315,85 @@ d3.json("salingData.json").then(function(salesData){
   xAxisGroup.attr("transform", "translate(0,"+xAxisYPos+")");
   xAxisGroup.selectAll("line").remove();
 
+// profit scale
+  let minProfit = d3.min(filteredData,function(d){
+    return d.Profits;
+  });
+  console.log(minProfit);
+  let maxProfit = d3.max(filteredData,function(d){
+    return d.Profits;
+  });
+  console.log(maxProfit);
+  let profitDomain = [minProfit,maxProfit];
+  let profitScale = d3.scaleLinear().domain(profitDomain).range([padding, w-(padding*2)]);
+
+  let profitAxis = d3.axisBottom(profitScale);
+  profitAxisGroup.call(profitAxis);
+  profitAxisGroup.selectAll("line").remove();
+  profitAxisGroup.attr("transform", "translate(0,100)");
+
 //----------------------------------------------------------------------//
 
 //----------------------------------------------------------------------//
 // visualization
 
-// profitChart.selectAll(".profit").data(filteredData).enter()
-//   .append("g")
-//     .attr("class","profit")
-// ;
-//
-// let resale = profitChart.selectAll(".profit")
-//   .append("circle")
-//     .attr("cx",w/2)
-//     .attr("cy",h/2)
-//     .attr("r",function(filteredData){
-//       return priceScale(filteredData.salePrice);
-//     })
-//     .attr("fill",function(filteredData){
-//       if(filteredData.Brand==" Yeezy"){
-//         return "#e5dab7"
-//       }else {
-//         return "#FF6600"
-//       }
-//     })
-//     .style("opacity",0.7)
-//   ;
+profitChart.selectAll(".profit").data(filteredData).enter()
+  .append("g")
+    .attr("class","profit")
+;
+
+let resale = profitChart.selectAll(".profit")
+  .append("circle")
+    .attr("cx",w/2)
+    .attr("cy",h/2)
+    .attr("r",function(filteredData){
+      return priceScale(filteredData.salePrice);
+    })
+    .attr("fill",function(filteredData){
+      if(filteredData.Brand==" Yeezy"){
+        return "#e5dab7"
+      }else {
+        return "#FF6600"
+      }
+    })
+    .style("opacity",0.7)
+  ;
+
+  let retail = profitChart.selectAll(".profit")
+    .append("circle")
+      .attr("cx",w/2)
+      .attr("cy",h/2)
+      .attr("r",function(filteredData){
+        return priceScale(filteredData.retailPrice);
+      })
+      .attr("fill",function(filteredData){
+        if(filteredData.Brand==" Yeezy"){
+          return "#c9bdb7"
+        }else {
+          return "#cf4e04"
+        }
+      })
+      .style("opacity",0.7)
+    ;
+
+    let simulation = d3.forceSimulation(filteredData)
+      .force("forceX",function(d){
+        return d3.forceX(profitScale(d.Profits))
+      })
+      .force("forceY",d3.forceY(h/2))
+      .force("collide",d3.forceCollide(5))
+      .on("tick",simulationRan)
+    ;
+
+    function simulationRan(){
+      viz.selectAll(".profit")
+      .attr("cx", function(d){
+        return profitScale(d.Profits);
+      })
+      .attr("cy", function(d){
+        return h/2;
+      })
+    }
 
 //-----------DRAW EVERYTHING OUT FIRST--------------//
   // Sneaker Before
@@ -348,7 +403,7 @@ d3.json("salingData.json").then(function(salesData){
   sneakerBefore1.html(aj1);
   //transform sneakerBefore1
   d3.select(".sneakerBefore1")
-    .attr("transform", "scale(0.45)")
+    .attr("transform", "scale(0.45)translate(0,200)")
   ;
 
   let sneakerBefore2 = d3.select(".sneakerBefore").append("g")
@@ -357,7 +412,7 @@ d3.json("salingData.json").then(function(salesData){
   sneakerBefore2.html(aj11);
   //transform sneakerBefore2
   d3.select(".sneakerBefore2")
-    .attr("transform", "scale(0.45)translate(1700,300)scale(-1,1)")
+    .attr("transform", "scale(0.45)translate(1700,500)scale(-1,1)")
   ;
 
   enterView({
@@ -386,7 +441,7 @@ d3.json("salingData.json").then(function(salesData){
   owLogo.html(offWhite);
 
   d3.select(".offWhite")
-    .attr("transform", "scale(0.3)")
+    .attr("transform", "scale(0.3)translate(0,200)")
   ;
 
   //ow90
@@ -395,7 +450,7 @@ d3.json("salingData.json").then(function(salesData){
     ;
 
   d3.select(".airmax90")
-    .attr("transform", "scale(0.3)translate(150,400)")
+    .attr("transform", "scale(0.3)translate(150,600)")
   ;
   ow90.html(airmax90);
 
@@ -405,7 +460,7 @@ d3.json("salingData.json").then(function(salesData){
     ;
 
   d3.select(".airmax97")
-    .attr("transform", "scale(0.25)translate(150,1200)")
+    .attr("transform", "scale(0.25)translate(150,1400)")
   ;
   ow97.html(airmax97);
 
@@ -415,7 +470,7 @@ d3.json("salingData.json").then(function(salesData){
     ;
 
   d3.select(".yeezy")
-    .attr("transform", "scale(0.95)translate(400,-60)")
+    .attr("transform", "scale(0.95)translate(400,0)")
   ;
   yzylogo.html(yeezy);
 
@@ -425,7 +480,7 @@ d3.json("salingData.json").then(function(salesData){
     ;
 
   d3.select(".yeezy350")
-    .attr("transform", "scale(0.3)translate(1500,150)")
+    .attr("transform", "scale(0.3)translate(1500,350)")
     .attr("opacity",0.6)
   ;
   yeezy1.html(yeezy350);
@@ -436,7 +491,7 @@ d3.json("salingData.json").then(function(salesData){
     ;
 
   d3.select(".yeezy750")
-    .attr("transform", "scale(0.27)translate(1700,900)")
+    .attr("transform", "scale(0.27)translate(1700,1100)")
     .attr("opacity",0.6)
   ;
   yeezy2.html(yeezy750);
@@ -651,6 +706,8 @@ d3.json("salingData.json").then(function(salesData){
                       return yScale(d.retailPrice)
                     })
 
+
+
               },
               // progress: function(el, progress) {
               // 	el.style.opacity = progress;
@@ -676,6 +733,8 @@ d3.json("salingData.json").then(function(salesData){
           viz.selectAll(".salingChart").transition().duration(1000).attr("opacity",0);
           viz.selectAll(".xaxis").transition().duration(1000).attr("opacity",0);
           viz.selectAll(".yaxis").transition().duration(1000).attr("opacity",0);
+
+          viz.selectAll(".sneakerNow").transition().duration(800).attr("opacity",1);
       	},
       	// progress: function(el, progress) {
       	// 	el.style.opacity = progress;

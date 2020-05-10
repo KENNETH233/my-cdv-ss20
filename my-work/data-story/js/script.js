@@ -260,8 +260,9 @@ d3.json("salingData.json").then(function(salesData){
 
         // remove "," if the prices are hight than 1k
         datapoint.salePrice = datapoint.salePrice.replace(/,/g,"");
+        datapoint.Profits = datapoint.Profits.replace(/,/g,"");
 
-        // convert all the string to Number
+                // convert all the string to Number
         datapoint.retailPrice = Number(datapoint.retailPrice);
         datapoint.salePrice = Number(datapoint.salePrice);
         datapoint.Profits = Number(datapoint.Profits);
@@ -420,30 +421,15 @@ let resale = profitChart.selectAll(".profit")
         return h/2;
       }))
       .force('collide', d3.forceCollide().radius(function(d,i){
-        return shoeScale(d.shoeSize)+1;
+        return priceScale(d.retailPrice)+1;
       }))
       .on('tick',simulationRan)
     ;
 
-    // let simulation = d3.forceSimulation(d)
-    //   .force("forceX",function(d){
-    //     return d3.forceX.x(function(){
-    //       return profitScale(d.Profits)
-    //     })
-    //   })
-    //   .force("forceY",d3.forceY(h/2))
-    //   .force("collide",d3.forceCollide().raidus(function(d){
-    //     return shoeScale(shoeSize)+1;
-    //   }))
-    //   .on("tick",simulationRan)
-    // ;
-
     function simulationRan(d){
       viz.selectAll(".profit")
       .attr("transform", function(d){
-        let x = profitScale(d.Profits)
-        let y = h/2;
-        return "translate("+x+","+y+")";
+        return "translate("+d.x+","+d.y+")";
       })
 
     }

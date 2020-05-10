@@ -1,5 +1,5 @@
 // global variables that we need at various spots:
-let w = 800;
+let w = 900;
 let h = 600;
 let padding = 30;
 
@@ -15,7 +15,7 @@ let xScale, yScale;
 
 let xAxisGroup = viz.append("g").attr("class", "xaxis").attr("opacity", 0);
 let yAxisGroup = viz.append("g").attr("class", "yaxis").attr("opacity", 0);
-let profitAxisGroup = viz.append("g").attr("class", "profitaxis").attr("opacity", 1);
+let profitAxisGroup = viz.append("g").attr("class", "profitaxis").attr("opacity", 0);
 
 
 //
@@ -47,7 +47,7 @@ let map = viz.append("g")
 
 let profitChart = viz.append("g")
     .attr("class", "profitChart")
-    .attr("opacity", 1)
+    .attr("opacity", 0)
     .attr("visibility", "visible")
   ;
 
@@ -334,18 +334,18 @@ d3.json("salingData.json").then(function(salesData){
 
   let priceDomain = [minPrice,maxPrice];
 
-  let priceScale = d3.scaleLinear().domain(priceDomain).range([10,30]);
+  let priceScale = d3.scaleLinear().domain(priceDomain).range([5,10]);
 
   //Draw axis
   let yAxis = d3.axisLeft(yScale);
   yAxisGroup.call(yAxis);
-  yAxisGroup.attr("transform", "translate("+padding+",0)");
+  yAxisGroup.attr("transform", "translate(40,0)");
   yAxisGroup.selectAll("line").remove();
 
   let xAxis = d3.axisBottom(xScale);
   xAxisGroup.call(xAxis);
   // let xAxisYPos = h - 30;
-  xAxisGroup.attr("transform", "translate(0,"+xAxisYPos+")");
+  xAxisGroup.attr("transform", "translate(10,"+xAxisYPos+")");
   xAxisGroup.selectAll("line").remove();
 
 // profit scale
@@ -358,7 +358,7 @@ d3.json("salingData.json").then(function(salesData){
   });
   console.log(maxProfit);
   let profitDomain = [minProfit,maxProfit];
-  let profitScale = d3.scaleLinear().domain(profitDomain).range([padding, w-(padding*2)]);
+  let profitScale = d3.scaleLinear().domain(profitDomain).range([0, w-padding]);
 
   let profitAxis = d3.axisBottom(profitScale);
   profitAxisGroup.call(profitAxis);
@@ -368,71 +368,6 @@ d3.json("salingData.json").then(function(salesData){
 
 //----------------------------------------------------------------------//
 // visualization
-
-profitChart.selectAll(".profit").data(filteredData).enter()
-  .append("g")
-    .attr("class","profit")
-    .attr("transform",function(d){
-      let x = profitScale(d.Profits)
-      let y = h/2
-      return "translate("+x+","+y+")"
-    })
-;
-
-let resale = profitChart.selectAll(".profit")
-  .append("circle")
-    .attr("cx",0)
-    .attr("cy",0)
-    .attr("r",function(d){
-      return priceScale(d.salePrice);
-    })
-    .attr("fill",function(d){
-      if(d.Brand==" Yeezy"){
-        return "#e5dab7"
-      }else {
-        return "#FF6600"
-      }
-    })
-    .style("opacity",0.7)
-  ;
-
-  let retail = profitChart.selectAll(".profit")
-    .append("circle")
-      .attr("cx",0)
-      .attr("cy",0)
-      .attr("r",function(d){
-        return priceScale(d.retailPrice);
-      })
-      .attr("fill",function(d){
-        if(d.Brand==" Yeezy"){
-          return "#c9bdb7"
-        }else {
-          return "#cf4e04"
-        }
-      })
-      .style("opacity",0.7)
-    ;
-
-    let simulation = d3.forceSimulation(filteredData)
-      .force('forceX', d3.forceX().x(function(d,i){
-          return xScale(d.Profits)
-        }))
-      .force('forceY', d3.forceY().y(function(d){
-        return h/2;
-      }))
-      .force('collide', d3.forceCollide().radius(function(d,i){
-        return priceScale(d.retailPrice)+1;
-      }))
-      .on('tick',simulationRan)
-    ;
-
-    function simulationRan(d){
-      viz.selectAll(".profit")
-      .attr("transform", function(d){
-        return "translate("+d.x+","+d.y+")";
-      })
-
-    }
 
 //-----------DRAW EVERYTHING OUT FIRST--------------//
   // Sneaker Before
@@ -601,27 +536,6 @@ let resale = profitChart.selectAll(".profit")
             })
           ;
 
-          // let simulation = d3.forceSimulation(filteredData)
-          //   .force("forceX",d3.forceX(function(filteredData){
-          //     return xScale(filteredData.releaseDate)
-          //   }))
-          //   .force("forceY",d3.forceY(function(filteredData){
-          //     return yScale(filteredData.retailPrice)
-          //   }))
-          //   .force("collide",d3.forceCollide(5))
-          //   .on("tick",simulationRan)
-          // ;
-
-          // function simulationRan(){
-          //   viz.selectAll(".purchases")
-            // .attr("cx", function(filteredData){
-            //   return xScale(filteredData.releaseDate);
-            // })
-            // .attr("cy", function(filteredData){
-            //   yScale(filteredData.retailPrice);
-            // })
-          // }
-
             enterView({
               selector: '#Resale',
               enter: function(el) {
@@ -635,11 +549,6 @@ let resale = profitChart.selectAll(".profit")
                   .attr("cy",function(d){
                     return yScale(d.salePrice)
                   })
-                  // .on("mouseover",reSaleHover)
-                  // .on("mouseout",function(){
-                  //   d3.selectAll(".resaleHoverCard").transition(500)
-                  //     .remove();
-                  // })
                 ;
 
                 d3.selectAll(".purchases")
@@ -770,10 +679,7 @@ let resale = profitChart.selectAll(".profit")
 
 
               },
-              // progress: function(el, progress) {
-              // 	el.style.opacity = progress;
-              // },
-              offset: 0.5, // enter at middle of viewport
+              offset: 0.5,
             });
 
       }
@@ -781,7 +687,6 @@ let resale = profitChart.selectAll(".profit")
       enterView({
       	selector: '#Changes',
       	enter: function(el) {
-      		// el.classList.add('entered');
           showSales();
           viz.selectAll(".sneakerNow").transition().duration(1000).attr("opacity",0);
           viz.selectAll(".salingChart").transition().duration(1000).attr("opacity",1);
@@ -789,18 +694,13 @@ let resale = profitChart.selectAll(".profit")
           viz.selectAll(".yaxis").transition().duration(1000).attr("opacity",1);
       	},
       	exit: function(el) {
-      		// el.classList.remove('entered');
-          // showSales();
           viz.selectAll(".salingChart").transition().duration(1000).attr("opacity",0);
           viz.selectAll(".xaxis").transition().duration(1000).attr("opacity",0);
           viz.selectAll(".yaxis").transition().duration(1000).attr("opacity",0);
 
           viz.selectAll(".sneakerNow").transition().duration(800).attr("opacity",1);
       	},
-      	// progress: function(el, progress) {
-      	// 	el.style.opacity = progress;
-      	// },
-      	offset: 0.5, // enter at middle of viewport
+      	offset: 0.5,
       });
 
 
@@ -808,9 +708,96 @@ let resale = profitChart.selectAll(".profit")
 
 
       function showProfit(){
-        // console.log(geoData);
-        // console.log(incomingData);
+        profitChart.selectAll(".profit").data(filteredData).enter()
+          .append("g")
+            .attr("class","profit")
+            .attr("transform",function(d){
+              let x = profitScale(d.Profits)
+              let y = h/2
+              return "translate("+x+","+y+")"
+            })
+        ;
+
+        let resale = profitChart.selectAll(".profit")
+          .append("circle")
+            .attr("cx",0)
+            .attr("cy",0)
+            .attr("r",function(d){
+              return priceScale(d.salePrice);
+            })
+            .attr("fill",function(d){
+              if(d.Brand==" Yeezy"){
+                return "#e5dab7"
+              }else {
+                return "#FF6600"
+              }
+            })
+            .style("opacity",0.7)
+          ;
+
+          let retail = profitChart.selectAll(".profit")
+            .append("circle")
+              .attr("cx",0)
+              .attr("cy",0)
+              .attr("r",function(d){
+                return priceScale(d.retailPrice);
+              })
+              .attr("fill",function(d){
+                if(d.Brand==" Yeezy"){
+                  return "#c9bdb7"
+                }else {
+                  return "#cf4e04"
+                }
+              })
+              .style("opacity",0.7)
+            ;
+
+            let simulation = d3.forceSimulation(filteredData)
+              .force('forceX', d3.forceX().x(function(d,i){
+                  return profitScale(d.Profits)
+                }))
+              .force('forceY', d3.forceY().y(function(d){
+                return h/2;
+              }))
+              .force('collide', d3.forceCollide().radius(function(d,i){
+                return priceScale(d.retailPrice)+1;
+              }))
+              .on('tick',simulationRan)
+            ;
+
+            function simulationRan(d){
+              viz.selectAll(".profit")
+              .attr("transform", function(d){
+                return "translate("+d.x+","+d.y+")";
+              })
+
+            }
       }
+
+      enterView({
+        selector: '#Profit',
+        enter: function(el) {
+          viz.selectAll(".xaxis").transition().duration(1000).attr("opacity",0);
+          viz.selectAll(".yaxis").transition().duration(1000).attr("opacity",0);
+          viz.selectAll(".salingChart").transition().duration(1000).attr("opacity",0);
+
+          showProfit();
+          viz.selectAll(".profitaxis").transition().delay(1000).duration(1000).attr("opacity",1);
+          viz.selectAll(".profitChart").transition().delay(1000).duration(1000).attr("opacity",1);
+
+
+        },
+        exit: function(el) {
+          viz.selectAll(".profitaxis").transition().duration(1000).attr("opacity",0);
+          viz.selectAll(".profitChart").transition().duration(1000).attr("opacity",0);
+
+          viz.selectAll(".salingChart").transition().delay(1000).duration(1000).attr("opacity",1);
+          viz.selectAll(".xaxis").transition().delay(1000).duration(1000).attr("opacity",1);
+          viz.selectAll(".yaxis").transition().delay(1000).duration(1000).attr("opacity",1);
+
+        },
+        offset: 0.5,
+      });
 
 
       function showMap(){
@@ -829,8 +816,6 @@ let resale = profitChart.selectAll(".profit")
 
         let colorScale = d3.scaleLinear().domain([minCount,maxCount]).range(["#FBE9E7","#BF360C"]);
 
-        // PRINT DATA
-        // console.log(geoData);
 
         let projection = d3.geoAlbersUsa() // citation: https://d3js.org.cn/document/d3-geo/#composite-projections
           .translate([w/2,h/2])
@@ -849,6 +834,15 @@ let resale = profitChart.selectAll(".profit")
                           .attr("fill","#FBE9E7")
                           .attr("stroke", "lightbrown")
                           .on("mouseover",function(d){
+                            viz.append("rect")
+                              .attr("class","stateHover")
+                              .attr("width",300)
+                              .attr("height",100)
+                              .attr("x",20)
+                              .attr("y",20)
+                              .attr("opacity",0.4)
+                            ;
+
                             viz.append("text")
                               .text(function(){
                                 return d.properties.name
@@ -856,7 +850,7 @@ let resale = profitChart.selectAll(".profit")
                               .attr("x",50)
                               .attr("y",50)
                               .style("font-size","25px")
-                              .style("color","white")
+                              .style("fill","white")
 
                             viz.append("text")
                               .text(function(){
@@ -876,10 +870,11 @@ let resale = profitChart.selectAll(".profit")
                               .attr("x",50)
                               .attr("y",100)
                               .style("font-size","25px")
-                              .style("color","white")
+                              .style("fill","white")
                           })
                           .on("mouseout",function(d){
                             d3.selectAll("text").remove();
+                            d3.selectAll(".stateHover").remove();
                           })
               ;
 
@@ -914,6 +909,9 @@ let resale = profitChart.selectAll(".profit")
         selector: '#Market',
         enter: function(el) {
           // el.classList.add('entered');
+          viz.selectAll(".profitaxis").transition().duration(1000).attr("opacity",0);
+          viz.selectAll(".profitChart").transition().duration(1000).attr("opacity",0);
+
           viz.selectAll(".map").transition().duration(1000).attr("opacity",1);
           viz.selectAll(".salingChart").transition().duration(1000).attr("opacity",0);
           viz.selectAll(".xaxis").transition().duration(1000).attr("opacity",0);
@@ -922,18 +920,27 @@ let resale = profitChart.selectAll(".profit")
         },
         exit: function(el) {
         	el.classList.remove('entered');
+          viz.selectAll(".profitaxis").transition().duration(1000).attr("opacity",1);
+          viz.selectAll(".profitChart").transition().duration(1000).attr("opacity",1);
+
           viz.selectAll(".map").transition().duration(1000).attr("opacity",0);
           viz.selectAll(".state").transition().duration(1000).remove();
-          viz.selectAll(".salingChart").transition().duration(1000).attr("opacity",1);
-          viz.selectAll(".xaxis").transition().duration(1000).attr("opacity",1);
-          viz.selectAll(".yaxis").transition().duration(1000).attr("opacity",1);
         },
-        // progress: function(el, progress) {
-        // 	el.style.opacity = progress;
-        // },
-        offset: 0.5, // enter at middle of viewport
+        offset: 0.5,
       });
 
+      enterView({
+        selector: '#Conclusion',
+        enter: function(el) {
+          // el.classList.add('entered');
+          viz.selectAll(".map").transition().duration(1000).attr("opacity",0);
+        },
+        exit: function(el) {
+          el.classList.remove('entered');
+          viz.selectAll(".map").transition().duration(1000).attr("opacity",0);
+        },
+        offset: 0.5,
+      });
 
     });
   });

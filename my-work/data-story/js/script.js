@@ -76,16 +76,17 @@ d3.json("salingData.json").then(function(salesData){
         let hoverCard = d3.selectAll(".salingChart").append("g")
               .attr("class","hoverCard")
               .attr("opacity",1)
-              .attr("transform", function(){
-                let x = xScale(d.releaseDate);
-                let y = yScale(d.retailPrice);
-                return "translate("+x+","+y+")";
-              })
+              // .attr("transform", function(){
+              //   let x = xScale(d.releaseDate)-50;
+              //   let y = yScale(d.retailPrice)-60;
+              //   return "translate("+x+","+y+")";
+              // })
+              .attr("transform","translate(50,0)")
         ;
 
         hoverCard.append("rect")
-          .attr("width", 300)
-          .attr("height", 150)
+          .attr("width", 150)
+          .attr("height", 100)
           .attr("x", 0)
           .attr("y", 0)
           .attr("fill", "black")
@@ -113,7 +114,6 @@ d3.json("salingData.json").then(function(salesData){
             .attr("fill", "white")
         ;
 
-
         hoverCard.append("text")
             .text("Retail Prices:")
             .attr("x", textXPadding)
@@ -132,24 +132,6 @@ d3.json("salingData.json").then(function(salesData){
             .attr("fill", "white")
         ;
 
-
-        hoverCard.append("text")
-            .text("Release Date:")
-            .attr("x", textXPadding)
-            .attr("y", textYPadding * 3)
-            .attr("font-size", 14)
-            .attr("fill", "white")
-        ;
-
-        hoverCard.append("text")
-            .text(function(){
-              return d.releaseDate;
-            })
-            .attr("x", textXPadding+90)
-            .attr("y", textYPadding * 3)
-            .attr("font-size", 14)
-            .attr("fill", "white")
-        ;
       }
 
       function reSaleHover(d){
@@ -165,17 +147,17 @@ d3.json("salingData.json").then(function(salesData){
               .attr("class","resaleHoverCard")
               .attr("opacity",1)
               // .attr("visibility","hidden")
-              // .attr("transform", function(d){
-              //   let x = xScale(d.releaseDate);
-              //   let y = yScale(d.retailPrice);
+              // .attr("transform", function(){
+              //   let x = xScale(d.orderDate)-55;
+              //   let y = yScale(d.salePrice)-60;
               //   return "translate("+x+","+y+")";
               // })
               .attr("transform","translate(50,0)")
         ;
 
         resaleHoverCard.append("rect")
-          .attr("width", 130)
-          .attr("height", 110)
+          .attr("width", 150)
+          .attr("height", 100)
           .attr("x", 0)
           .attr("y", 0)
           .attr("fill", "black")
@@ -186,7 +168,6 @@ d3.json("salingData.json").then(function(salesData){
         let textYPadding = 24;
 
         resaleHoverCard.append("text")
-            .attr("id", "Brand")
             .text("Brand:")
             .attr("x", textXPadding)
             .attr("y", textYPadding)
@@ -194,18 +175,29 @@ d3.json("salingData.json").then(function(salesData){
             .attr("fill", "white")
         ;
 
-        // hoverCard.append("text")
-        //     .attr("id", "Brand")
-        //     .text("")
-        //     .attr("x", textXPadding+10)
-        //     .attr("y", textYPadding)
-        //     .attr("font-size", 14)
-        //     .attr("fill", "white")
-        // ;
+        resaleHoverCard.append("text")
+            .text(function(){
+              return d.Brand;
+            })
+            .attr("x", textXPadding+45)
+            .attr("y", textYPadding)
+            .attr("font-size", 14)
+            .attr("fill", "white")
+        ;
 
         resaleHoverCard.append("text")
-            .text("Sneaker:")
+            .text("Retail Prices:")
             .attr("x", textXPadding)
+            .attr("y", textYPadding * 2)
+            .attr("font-size", 14)
+            .attr("fill", "white")
+        ;
+
+        resaleHoverCard.append("text")
+            .text(function(){
+              return d.retailPrice;
+            })
+            .attr("x", textXPadding+90)
             .attr("y", textYPadding * 2)
             .attr("font-size", 14)
             .attr("fill", "white")
@@ -220,12 +212,34 @@ d3.json("salingData.json").then(function(salesData){
         ;
 
         resaleHoverCard.append("text")
-            .text("OrderDate:")
+            .text(function(){
+              return d.salePrice;
+            })
+            .attr("x", textXPadding+95)
+            .attr("y", textYPadding * 3)
+            .attr("font-size", 14)
+            .attr("fill", "white")
+        ;
+
+        resaleHoverCard.append("text")
+            .text("Profit:")
             .attr("x", textXPadding)
             .attr("y", textYPadding * 4)
             .attr("font-size", 14)
             .attr("fill", "white")
         ;
+
+        resaleHoverCard.append("text")
+            .text(function(){
+              return d.Profits;
+            })
+            .attr("x", textXPadding+45)
+            .attr("y", textYPadding * 4)
+            .attr("font-size", 14)
+            .attr("fill", "white")
+        ;
+
+
       }
 
       // Ramdomly pick data from the ENORMOUS dataset
@@ -253,12 +267,18 @@ d3.json("salingData.json").then(function(salesData){
         datapoint.Profits = Number(datapoint.Profits);
         datapoint.shoeSize = Number(datapoint.shoeSize);
 
+
         return datapoint;
       }
 
       let filteredData = salesData.map(mappingFunction);
       console.log(filteredData);
 
+      let profitData = filteredData.map(function(datapoint){
+        return datapoint.Profits;
+      })
+
+      console.log(profitData);
       //--------------------------------------//
 
 
@@ -341,7 +361,6 @@ d3.json("salingData.json").then(function(salesData){
 
   let profitAxis = d3.axisBottom(profitScale);
   profitAxisGroup.call(profitAxis);
-  // profitAxisGroup.selectAll("line").remove();
   profitAxisGroup.attr("transform", "translate(0,100)");
 
 //----------------------------------------------------------------------//
@@ -349,51 +368,64 @@ d3.json("salingData.json").then(function(salesData){
 //----------------------------------------------------------------------//
 // visualization
 
-// profitChart.selectAll(".profit").data(filteredData).enter()
-//   .append("g")
-//     .attr("class","profit")
-//     .attr("transform",function(filteredData){
-//       let x = profitScale(filteredData.Profits)
-//       let y = h/2
-//       return "translate("+x+","+y+")"
-//     })
-// ;
-//
-// let resale = profitChart.selectAll(".profit")
-//   .append("circle")
-//     .attr("cx",0)
-//     .attr("cy",0)
-//     .attr("r",function(filteredData){
-//       return priceScale(filteredData.salePrice);
-//     })
-//     .attr("fill",function(filteredData){
-//       if(filteredData.Brand==" Yeezy"){
-//         return "#e5dab7"
-//       }else {
-//         return "#FF6600"
-//       }
-//     })
-//     .style("opacity",0.7)
-//   ;
+profitChart.selectAll(".profit").data(filteredData).enter()
+  .append("g")
+    .attr("class","profit")
+    .attr("transform",function(d){
+      let x = profitScale(d.Profits)
+      let y = h/2
+      return "translate("+x+","+y+")"
+    })
+;
 
-  // let retail = profitChart.selectAll(".profit")
-  //   .append("circle")
-  //     .attr("cx",0)
-  //     .attr("cy",0)
-  //     .attr("r",function(filteredData){
-  //       return priceScale(filteredData.retailPrice);
-  //     })
-  //     .attr("fill",function(filteredData){
-  //       if(filteredData.Brand==" Yeezy"){
-  //         return "#c9bdb7"
-  //       }else {
-  //         return "#cf4e04"
-  //       }
-  //     })
-  //     .style("opacity",0.7)
-  //   ;
+let resale = profitChart.selectAll(".profit")
+  .append("circle")
+    .attr("cx",0)
+    .attr("cy",0)
+    .attr("r",function(d){
+      return priceScale(d.salePrice);
+    })
+    .attr("fill",function(d){
+      if(d.Brand==" Yeezy"){
+        return "#e5dab7"
+      }else {
+        return "#FF6600"
+      }
+    })
+    .style("opacity",0.7)
+  ;
 
-    // let simulation = d3.forceSimulation(filteredData)
+  let retail = profitChart.selectAll(".profit")
+    .append("circle")
+      .attr("cx",0)
+      .attr("cy",0)
+      .attr("r",function(d){
+        return priceScale(d.retailPrice);
+      })
+      .attr("fill",function(d){
+        if(d.Brand==" Yeezy"){
+          return "#c9bdb7"
+        }else {
+          return "#cf4e04"
+        }
+      })
+      .style("opacity",0.7)
+    ;
+
+    let simulation = d3.forceSimulation(filteredData)
+      .force('forceX', d3.forceX().x(function(d,i){
+          return xScale(d.Profits)
+        }))
+      .force('forceY', d3.forceY().y(function(d){
+        return h/2;
+      }))
+      .force('collide', d3.forceCollide().radius(function(d,i){
+        return shoeScale(d.shoeSize)+1;
+      }))
+      .on('tick',simulationRan)
+    ;
+
+    // let simulation = d3.forceSimulation(d)
     //   .force("forceX",function(d){
     //     return d3.forceX.x(function(){
     //       return profitScale(d.Profits)
@@ -405,16 +437,16 @@ d3.json("salingData.json").then(function(salesData){
     //   }))
     //   .on("tick",simulationRan)
     // ;
-    //
-    // function simulationRan(){
-    //   viz.selectAll(".profit")
-    //   .attr("cx", function(d){
-    //     return profitScale(d.Profits);
-    //   })
-    //   .attr("cy", function(d){
-    //     return h/2;
-    //   })
-    // }
+
+    function simulationRan(d){
+      viz.selectAll(".profit")
+      .attr("transform", function(d){
+        let x = profitScale(d.Profits)
+        let y = h/2;
+        return "translate("+x+","+y+")";
+      })
+
+    }
 
 //-----------DRAW EVERYTHING OUT FIRST--------------//
   // Sneaker Before
@@ -583,26 +615,26 @@ d3.json("salingData.json").then(function(salesData){
             })
           ;
 
-          let simulation = d3.forceSimulation(filteredData)
-            .force("forceX",d3.forceX(function(filteredData){
-              return xScale(filteredData.releaseDate)
-            }))
-            .force("forceY",d3.forceY(function(filteredData){
-              return yScale(filteredData.retailPrice)
-            }))
-            .force("collide",d3.forceCollide(5))
-            .on("tick",simulationRan)
-          ;
+          // let simulation = d3.forceSimulation(filteredData)
+          //   .force("forceX",d3.forceX(function(filteredData){
+          //     return xScale(filteredData.releaseDate)
+          //   }))
+          //   .force("forceY",d3.forceY(function(filteredData){
+          //     return yScale(filteredData.retailPrice)
+          //   }))
+          //   .force("collide",d3.forceCollide(5))
+          //   .on("tick",simulationRan)
+          // ;
 
-          function simulationRan(){
-            viz.selectAll(".purchases")
+          // function simulationRan(){
+          //   viz.selectAll(".purchases")
             // .attr("cx", function(filteredData){
             //   return xScale(filteredData.releaseDate);
             // })
             // .attr("cy", function(filteredData){
             //   yScale(filteredData.retailPrice);
             // })
-          }
+          // }
 
             enterView({
               selector: '#Resale',

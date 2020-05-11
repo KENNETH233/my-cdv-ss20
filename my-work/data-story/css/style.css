@@ -63,7 +63,7 @@ p{
 }
 
 #viz{
-  width: 100%;
+  width: 50%;
   height: 50%;
   position: fixed;
   top: 15vh;
@@ -92,7 +92,6 @@ p{
 
 #context{
   width: 35%;
-  /* background:lightgrey; */
   position: relative;
   margin-top: 6%;
   padding-top: 30vh;

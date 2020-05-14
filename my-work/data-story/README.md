@@ -24,4 +24,5 @@ Hope my project can bring new insights to you! Enjoy it!
 ### Data source & Context reference
 
 [StockX data contest](https://stockx.com/news/the-2019-data-contest/)
+
 [Shoppers are now willing to drop hundreds of dollars on sneakers — and they might need to spend even more in the future-Business insider](https://www.businessinsider.com/sneaker-prices-costs-expensive-shoes-footwear-2019-7)

@@ -1,8 +1,8 @@
-# When Sneaker Become Capital: An Intro to Sneaker Market
-
-## NYU Shanghai Interactive Media Arts | Critical Data & Visualization Spring 2020
+# Final Project: Data Story
 
 ## Project Name: [When Sneaker Become Capital: An Intro to Sneaker Market](https://kenneth233.github.io/)
+
+### NYU Shanghai Interactive Media Arts | Critical Data & Visualization Spring 2020
 
 ### About this project
 

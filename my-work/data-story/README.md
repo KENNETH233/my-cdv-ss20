@@ -20,3 +20,7 @@ Through this project, I hope to deliver a concept to my audience, which:
  **sneaker are not just the shoes we wear not; sometimes they will be something like stocks or anything related to finance and marketing.**
 
 Hope my project can bring new insights to you! Enjoy it!
+
+### Data source
+
+[StockX data contest](https://stockx.com/news/the-2019-data-contest/)

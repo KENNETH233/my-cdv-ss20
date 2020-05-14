@@ -13,7 +13,8 @@ There are three visualization in my project: "Transition from retail to resale",
 ![Three visualization](assets/demo.gif)
 
 
-All these visualization intend to provide an analysis on sneaker's **"capital features"** to the audience: *Similar to stock, sneaker(especially those co-designing, limited version shoes) may experience huge prices floating. Also, they may be on the secondary market instead of on people's feet for a long time.*
+All these visualization intend to provide an analysis on sneaker's **"capital features"** to the audience:
+*Similar to stock, sneaker(especially those co-designing, limited version shoes) may experience huge prices floating. Also, they may be on the secondary market instead of on people's feet for a long time.*
 
 Through this project, I hope to deliver a concept to my audience, which:
  **sneaker are not just the shoes we wear not; sometimes they will be something like stocks or anything related to finance and marketing.**
